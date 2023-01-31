@@ -1,0 +1,54 @@
+
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row mt50" >
+            <div class="col-md-6 offset-md-3">
+                <mat-card>
+                    <div class="container text-center">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" height="100px" alt="profile">
+                    </div>
+                    <h1 class="text-center text-uppercase">Login</h1>
+    <!-- {{memberForm.value|json}} -->
+                    <form [formGroup]="memberForm">
+                        <div class="col-md-12">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>Username</mat-label>
+                                <input type="username" matInput formControlName="username">
+                                <mat-icon matPrefix>account_circle</mat-icon>
+                                <mat-error>Please enter valid Username</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>Password</mat-label>
+                                <input [type]="hide ? 'password' : 'text'" matInput formControlName="password">
+                                <mat-icon matPrefix>lock</mat-icon>
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                  </button>
+                                <mat-error>Password should be minimum 6 characters</mat-error>
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="container text-center btns">
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <a type="submit"  mat-raised-button color="primary" (click)="Submit()">Login</a>
+                                </div>
+                                <!-- <div class="col-md-12 ">
+                                    <a type="submit"  mat-raised-button color="primary" (click)="signInWithGoogle()">Login With Google</a>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <a type="reset" mat-raised-button routerLink="/signup">Signup</a>
+                                </div>
+                                <div class="col-md-12">
+                                    <a type="forgot" mat-button  routerLink="/forgot">Forgot Password</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card>                
+            </div>
+        </div>
+    </div>
+</div>
