@@ -105,19 +105,19 @@ export class SignupComponent implements OnInit {
   }
 
   sendMail(){
-    this.mailObject.to = this.memberForm.value.email;
-    this.mailObject.subject  = this.memberForm.value.firstname + " Successfully Registerd on Sciaku.com";
-    this.mailObject.message = "<div style='background-color:#fff; color:#000; height:100%;'>"
-                            + "<div style='background-color:#000; color:#fff; height:100%;'>"
-                            + "<img src='https://sciaku.com/assets/images/Sciaku.png' alt='Logo' style='height:70px; text-align:center; margin-left:135px;'/></div></br>"
-                            + "<div style='border: 2px solid black; border-radius: 0px 0px 20px 20px; text-align:center;'><h4>"
-                            + this.memberForm.value.firstname +" " + this.memberForm.value.lastname
-                            + "</h4><p>Welcome in Sciaku. You have successfully Registered on <a href='www.sciaku.com'>Sciaku.com</a></p>"
-                            + "<h3>Your Username : <b>" + this.memberForm.value.username +"</b></h3>"
-                            + "<h3>Your Password : <b>" + this.memberForm.value.password +"</b></h3>"
-                            + "<p><a href='www.sciaku.com/login'>Click here</a> to Login on Website</p>"
-                            + "<p><a style='text-align:center;' href='#'>Unsubscribe</a></p>"
-                            + "</div></div>"; 
+    // this.mailObject.to = this.memberForm.value.email;
+    // this.mailObject.subject  = this.memberForm.value.firstname + " Successfully Registerd on Sciaku.com";
+    // this.mailObject.message = "<div style='background-color:#fff; color:#000; height:100%;'>"
+    //                         + "<div style='background-color:#000; color:#fff; height:100%;'>"
+    //                         + "<img src='https://sciaku.com/assets/images/Sciaku.png' alt='Logo' style='height:70px; text-align:center; margin-left:135px;'/></div></br>"
+    //                         + "<div style='border: 2px solid black; border-radius: 0px 0px 20px 20px; text-align:center;'><h4>"
+    //                         + this.memberForm.value.firstname +" " + this.memberForm.value.lastname
+    //                         + "</h4><p>Welcome in Sciaku. You have successfully Registered on <a href='www.sciaku.com'>Sciaku.com</a></p>"
+    //                         + "<h3>Your Username : <b>" + this.memberForm.value.username +"</b></h3>"
+    //                         + "<h3>Your Password : <b>" + this.memberForm.value.password +"</b></h3>"
+    //                         + "<p><a href='www.sciaku.com/login'>Click here</a> to Login on Website</p>"
+    //                         + "<p><a style='text-align:center;' href='#'>Unsubscribe</a></p>"
+    //                         + "</div></div>"; 
     // this.mailApi.sendMail(this.mailObject).subscribe(
     //   (data:any)=>{
     //     console.log("mail is send!!" + data);
