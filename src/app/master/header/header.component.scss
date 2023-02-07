@@ -1,4 +1,13 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+
+  p{
+    margin: 0;
+  }
+
+  ::ng-deep .mat-toolbar{
+    z-index: 998;
+    position: fixed
+  }
   

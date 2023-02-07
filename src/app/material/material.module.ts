@@ -18,7 +18,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 const MaterialComponents=[
   MatButtonModule,
   MatInputModule,
@@ -35,7 +36,9 @@ const MaterialComponents=[
   MatExpansionModule,
   MatDialogModule,
   CdkAccordionModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatPaginatorModule,
+  MatTableModule
 ];
 
 @NgModule({
