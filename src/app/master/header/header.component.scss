@@ -1,7 +1,10 @@
 .example-spacer {
     flex: 1 1 auto;
   }
-
+a{
+  text-decoration: none;
+  color: #fff;
+}
   p{
     margin: 0;
   }
@@ -10,4 +13,6 @@
     z-index: 998;
     position: fixed
   }
-  
+.favorite-icon{
+  color: #fff;
+}

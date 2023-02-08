@@ -1,0 +1,120 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row mt10">
+            <div class="col-md-6 offset-md-3">
+                <mat-card>
+                    <!-- <div class="container text-center">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                            height="100px" alt="profile">
+                    </div> -->
+                    <h1 class="text-center text-uppercase">Add New Course</h1>
+                    <!-- {{memberForm.value|json}} -->
+                    <form>
+                        <!-- <p>{{courses|json}}</p> -->
+                        <div class="col-md-12">
+                            <mat-form-field class="w100">
+                                <mat-label style="font-size: 14px !important;">Instructor Name</mat-label>
+                                <mat-select [(value)]="courses.educator.id">
+                                    <mat-option>None</mat-option>
+                                    <mat-option *ngFor="let e of educators"
+                                        [value]="e.id">{{e.educator_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="w100">
+                                <mat-label>Course Name</mat-label>
+                                <input type="course_name" name="course_name" [(ngModel)]="courses.course_name" matInput
+                                    placeholder="Enter here">
+                                <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="w100">
+                                <mat-label>Enter Course Start Date and End Date</mat-label>
+                                <mat-date-range-input [rangePicker]="picker">
+                                    <input matStartDate [(ngModel)]="courses.start_date"
+                                        [ngModelOptions]="{standalone: true}" placeholder="Start date">
+                                    <input matEndDate [(ngModel)]="courses.end_date"
+                                        [ngModelOptions]="{standalone: true}" placeholder="End date">
+                                </mat-date-range-input>
+                                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="w100 month">
+                                <mat-label>Month</mat-label> <br>
+                            <input type="month" name="month" [(ngModel)]="courses.month" matInput>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="w100 time">
+                                <mat-label>Contact Session Timing</mat-label> <br>
+                            <input type="time" name="contact_session_timing" [(ngModel)]="courses.start_time" matInput
+                                placeholder="Enter here">
+                            <input type="time" name="contact_session_timing" [(ngModel)]="courses.end_time" matInput
+                                placeholder="Enter here">
+                            </div>
+                        </div>'
+                        <div class="col-md-12">
+                            <mat-form-field class="w100">
+                                <mat-label style="font-size: 14px !important;">CR/VCR</mat-label>
+                                <mat-select [(value)]="courses.course_mode">
+                                    <mat-option>None</mat-option>
+                                    <mat-option value="CR">CR</mat-option>
+                                    <mat-option value="VCR">VCR</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="w100">
+                                <mat-label>No Of Slots</mat-label>
+                                <input type="text" name="no_of_slots" [(ngModel)]="courses.no_of_slots" matInput
+                                    placeholder="Enter here">
+                                <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                                <mat-error>no_of_slots is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="courses.course_mode == 'VCR'" class="col-md-12">
+                            <mat-form-field class="w100">
+                                <mat-label>Venue</mat-label>
+                                <input type="text" name="venue" [(ngModel)]="courses.venue" matInput
+                                    placeholder="Enter here">
+                                <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                                <mat-error>Venue is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="courses.course_mode == 'CR'" class="col-md-12">
+                            <mat-form-field class="w100">
+                                <mat-label>Location</mat-label>
+                                <input type="text" name="location" [(ngModel)]="courses.location" matInput
+                                    placeholder="Enter here">
+                                <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                                <mat-error>Location is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="container text-center btns">
+                            <!-- [disabled]="!memberForm.valid" -->
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <!-- <a type="submit" mat-raised-button color="primary" (click)="Submit()">Register</a> -->
+                                </div>
+                                <div class="col-md-12">
+                                    <a type="reset" mat-raised-button (click)="onSubmit()">Add </a>
+                                </div>
+                                <!-- <div class="col-md-12">
+                                    <a type="forgot" mat-button routerLink="/forgot">Forgot Password</a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- o Agility and Scrum (1 x 2 hours) o Introduction to DevOps (1 x 2 hours) o Agility and Kanban (1 x 2 hours) o Agile Scrum in Practice (3 x 3.5 hours) o Kanban in Practice(3 x 3.5 hours) o ALM with Jira Agile (1 x 3.5 hours) o Introduction to Scaled Agile Framework (1 x 4 hours) o DevOps CICD Dotnet (4 x 3.5 hours) o SCM using GIT (1 x 3.5 hours) o DevOps CI/CICD (5 x 4 hours) o DevOps using Ansible (3 x 4 hour -->

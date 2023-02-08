@@ -20,6 +20,9 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 const MaterialComponents=[
   MatButtonModule,
   MatInputModule,
@@ -38,7 +41,10 @@ const MaterialComponents=[
   CdkAccordionModule,
   MatButtonToggleModule,
   MatPaginatorModule,
-  MatTableModule
+  MatTableModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  
 ];
 
 @NgModule({

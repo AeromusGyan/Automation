@@ -11,13 +11,19 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { authInterceptorProviders } from './services/auth.interceptor';
+import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
+import { CoursesSortPipe } from './pipes/courses-sort.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddCoursesComponent,
+    CoursesSortPipe
   ],
   imports: [
     BrowserModule,
@@ -27,9 +33,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     MasterModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

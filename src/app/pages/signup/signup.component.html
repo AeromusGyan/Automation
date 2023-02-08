@@ -16,7 +16,24 @@
                                 <input type="username" name="username" formControlName="username" matInput
                                     placeholder="Enter here">
                                 <mat-icon matPrefix>account_circle</mat-icon>
-                                <mat-error>Username is required</mat-error>
+                                <!-- <mat-hint>Hint</mat-hint> -->
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>Educator Name</mat-label>
+                                <input type="educator_name" name="educator_name" formControlName="educator_name" matInput
+                                    placeholder="Enter here">
+                                <mat-icon matPrefix>account_circle</mat-icon>
+                                <!-- <mat-hint>Hint</mat-hint> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>Email Address</mat-label>
+                                <input type="email" name="email" formControlName="email" matInput placeholder="Enter here">
+                                <mat-icon matPrefix>account_circle</mat-icon>
                                 <!-- <mat-hint>Hint</mat-hint> -->
                             </mat-form-field>
                         </div>
@@ -29,45 +46,6 @@
                                     [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>
-                                <mat-error>Password should be minimum 6 characters</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-12">
-                            <mat-form-field class="w100" appearance="outline">
-                                <mat-label>Firstname</mat-label>
-                                <input type="firstname" name="firstname" formControlName="firstname" matInput
-                                    placeholder="Enter here">
-                                <mat-icon matPrefix>account_circle</mat-icon>
-                                <mat-error>Firstname is required</mat-error>
-                                <!-- <mat-hint>Hint</mat-hint> -->
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-12">
-                            <mat-form-field class="w100" appearance="outline">
-                                <mat-label>Lastname</mat-label>
-                                <input type="lastname" name="lastname" formControlName="lastname" matInput
-                                    placeholder="Enter here">
-                                <mat-icon matPrefix>account_circle</mat-icon>
-                                <!-- <mat-hint>Hint</mat-hint> -->
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-12">
-                            <mat-form-field class="w100" appearance="outline">
-                                <mat-label>Email Address</mat-label>
-                                <input type="email" name="email" formControlName="email" matInput placeholder="Enter here">
-                                <mat-icon matPrefix>account_circle</mat-icon>
-                                <mat-error>Email is required</mat-error>
-                                <!-- <mat-hint>Hint</mat-hint> -->
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-12">
-                            <mat-form-field class="w100" appearance="outline">
-                                <mat-label>Phone Number</mat-label>
-                                <input type="phone" name="contact" formControlName="contact" matInput
-                                    placeholder="Enter here">
-                                <mat-icon matPrefix>account_circle</mat-icon>
-                                <mat-error>Phone Number is required</mat-error>
-                                <!-- <mat-hint>Hint</mat-hint> -->
                             </mat-form-field>
                         </div>
                         <div class="container text-center btns">
@@ -79,9 +57,9 @@
                                 <div class="col-md-12">
                                     <a type="reset" mat-raised-button routerLink="/login">Login</a>
                                 </div>
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                     <a type="forgot" mat-button routerLink="/forgot">Forgot Password</a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </form>
@@ -92,4 +70,4 @@
 </div>
 
 
-o Agility and Scrum (1 x 2 hours) o Introduction to DevOps (1 x 2 hours) o Agility and Kanban (1 x 2 hours) o Agile Scrum in Practice (3 x 3.5 hours) o Kanban in Practice(3 x 3.5 hours) o ALM with Jira Agile (1 x 3.5 hours) o Introduction to Scaled Agile Framework (1 x 4 hours) o DevOps CICD Dotnet (4 x 3.5 hours) o SCM using GIT (1 x 3.5 hours) o DevOps CI/CICD (5 x 4 hours) o DevOps using Ansible (3 x 4 hour
+<!-- o Agility and Scrum (1 x 2 hours) o Introduction to DevOps (1 x 2 hours) o Agility and Kanban (1 x 2 hours) o Agile Scrum in Practice (3 x 3.5 hours) o Kanban in Practice(3 x 3.5 hours) o ALM with Jira Agile (1 x 3.5 hours) o Introduction to Scaled Agile Framework (1 x 4 hours) o DevOps CICD Dotnet (4 x 3.5 hours) o SCM using GIT (1 x 3.5 hours) o DevOps CI/CICD (5 x 4 hours) o DevOps using Ansible (3 x 4 hour -->

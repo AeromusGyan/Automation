@@ -1,7 +1,9 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,8 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SignupComponent implements OnInit {
 
   constructor(
-    // private api: MemberService, 
-    // private http: HttpClient, 
+    private api: LoginService, 
+    private http: HttpClient, 
     private _snackBar: MatSnackBar, 
     // private mailApi: CategoryService
     ) { }
@@ -20,11 +22,9 @@ export class SignupComponent implements OnInit {
   memberForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    firstname: new FormControl('', Validators.required),
-    lastname: new FormControl(''),
+    educator_name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    contact: new FormControl('', [Validators.required, Validators.minLength(10)]),
-    city: new FormControl(''),
+    date: new FormControl(formatDate(new Date(), 'yyyy-dd-mm-hh-mm-ss-a', 'en')),
 
   })
   durationInSeconds = 2;
@@ -55,7 +55,7 @@ export class SignupComponent implements OnInit {
         horizontalPosition: 'center',
       });
     }
-    else if (this.memberForm.value.firstname == '' || this.memberForm.value.firstname == null) {
+    else if (this.memberForm.value.educator_name == '' || this.memberForm.value.educator_name == null) {
       this._snackBar.open('Firstname is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'top',
@@ -69,39 +69,28 @@ export class SignupComponent implements OnInit {
         horizontalPosition: 'center',
       });
     }
-    else if (this.memberForm.value.contact == '' || this.memberForm.value.contact == null) {
-      this._snackBar.open('Phone number is required !!', 'Close', {
-        duration: this.durationInSeconds * 1000,
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-      });
-    }
     else {
       this.AddMember();
     }
   }
   
   AddMember() {
-    // this.api.addMember(this.memberForm.value).subscribe(
-    //   (data: any) => {
-    //     //success
-    //     // console.log(data);
-    //     this.sendMail();
-    //     Swal.fire('Successfully done !!', 'User id is ' + data.id, 'success');
-    //   },
-    //   (error) => {
-    //     //error
-    //     Swal.fire('Warning', 
-    //     this.memberForm.value.username + 
-    //     ' Or ' + this.memberForm.value.email + 
-    //     ' is Registered Choose Unique Username and Email!!', 
-    //     'error');
-    //     // alert('Something went wrong!'+ error);
-    //     //   this._snackBar.open('Something went wrong !!','Close', {
-    //     //     duration: this.durationInSeconds * 1000,
-    //     //     verticalPosition:'bottom',
-    //     // });
-    //   })
+    this.api.addMember(this.memberForm.value).subscribe(
+      (data: any) => {
+        //success
+        // console.log(data);
+        this._snackBar.open('Successfully done !!','Close', {
+          duration: this.durationInSeconds * 1000,
+          verticalPosition:'bottom',
+      });
+      },
+      (error) => {
+        //error
+          this._snackBar.open('Something went wrong !!','Close', {
+            duration: this.durationInSeconds * 1000,
+            verticalPosition:'bottom',
+        });
+      })
   }
 
   sendMail(){

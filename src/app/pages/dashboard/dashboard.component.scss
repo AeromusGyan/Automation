@@ -9,6 +9,18 @@ h5{
     text-align: center;
 }
 
+.excel button{
+    float: right;
+    background-color: green;
+    color: white;
+}
+.excel button img{
+    width: 50px;
+    height: 50px;
+}
 
-
-
+@media screen and (max-width:600px) {
+    .row .ctable{
+        overflow: scroll;
+    }
+}

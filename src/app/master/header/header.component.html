@@ -1,19 +1,37 @@
-
 <p>
-    <mat-toolbar color="primary">
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-      </button>
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="/dashboard">
       <span>Automation</span>
-      <span class="example-spacer"></span>
-      <a routerLink="login">
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        Login<mat-icon>login</mat-icon>
-      </button>
     </a>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <!-- <mat-icon>signup</mat-icon> -->
-        <!-- <span>Signup</span> -->
-      </button>
-    </mat-toolbar>
-  </p>
+    <span class="example-spacer"></span>
+    <div *ngIf="userdata == null">
+      <a routerLink="login" class="m-2">
+        <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          Login
+          <!-- <mat-icon>login</mat-icon> -->
+        </button>
+      </a>
+      <a routerLink="signup">
+        <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          Signup
+        </button>
+      </a>
+    </div>
+    <div *ngIf="userdata">
+      <a routerLink="add-courses">
+        <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          Add Courses
+        </button>
+      </a>
+      <a (click)="logout()" class="m-2">
+        <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          Logout
+          <!-- <mat-icon>login</mat-icon> -->
+        </button>
+      </a>
+    </div>
+  </mat-toolbar>
+</p>
