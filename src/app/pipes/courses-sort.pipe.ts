@@ -5,6 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CoursesSortPipe implements PipeTransform {
 
+  
   transform(value: any[], args?: any): any[] {
     // console.log(value, args);
     for (let index = 0; index < value.length; index++) {
@@ -35,6 +36,7 @@ export class CoursesSortPipe implements PipeTransform {
       }
     }
     // 
+
     return value;
   }
 
