@@ -10,7 +10,7 @@
       <div class="col-md-2 col-sm-12">
           <mat-form-field appearance="fill" class="w100">
             <mat-label>Educators</mat-label>
-            <mat-select [(value)]="educator">
+            <mat-select [(value)]="educator" [(ngModel)]="sortoption">
               <mat-option>None</mat-option>
               <mat-option *ngFor="let c of allCourses"
                 [value]="c.educator.educator_name">{{c.educator.educator_name}}</mat-option>
@@ -20,7 +20,7 @@
       <div class="col-md-2 col-sm-12">
           <mat-form-field appearance="fill" class="w100">
             <mat-label>Courses</mat-label>
-            <mat-select [(value)]="courses">
+            <mat-select [(value)]="courses" [(ngModel)]="sortoption">
               <mat-option>None</mat-option>
               <mat-option *ngFor="let course of allCourses"
                 [value]="course.course_name">{{course.course_name}}</mat-option>
@@ -30,7 +30,7 @@
       <div class="col-md-2">
           <mat-form-field appearance="fill" class="w100">
             <mat-label>CR/VCR</mat-label>
-            <mat-select [(value)]="mode">
+            <mat-select [(value)]="mode" [(ngModel)]="sortoption">
               <mat-option>None</mat-option>
               <mat-option value="CR">CR</mat-option>
               <mat-option value="VCR">VCR</mat-option>
@@ -40,25 +40,25 @@
       <div class="col-md-2">
           <mat-form-field appearance="fill" class="w100">
             <mat-label>Start date</mat-label>
-            <mat-select [(value)]="start">
+            <mat-select [(value)]="start" [(ngModel)]="sortoption">
               <mat-option>None</mat-option>
-              <mat-option *ngFor="let c of allCourses" [value]="c.start_date | date ">{{c.start_date | date }}</mat-option>
+              <mat-option *ngFor="let c of allCourses" [value]="c.start_date">{{c.start_date | date }}</mat-option>
             </mat-select>
           </mat-form-field>
       </div>
       <div class="col-md-2">
           <mat-form-field appearance="fill" class="w100">
             <mat-label>End date</mat-label>
-            <mat-select [(value)]="end">
+            <mat-select [(value)]="end" [(ngModel)]="sortoption">
               <mat-option>None</mat-option>
-              <mat-option *ngFor="let c of allCourses" [value]="c.end_date | date ">{{c.end_date | date }}</mat-option>
+              <mat-option *ngFor="let c of allCourses" [value]="c.end_date">{{c.end_date | date }}</mat-option>
             </mat-select>
           </mat-form-field>
       </div>
       <div class="col-md-2">
           <mat-form-field appearance="fill" class="w100">
             <mat-label>Contact Session Timings</mat-label>
-            <mat-select [(value)]="contact">
+            <mat-select [(value)]="contact" [(ngModel)]="sortoption">
               <mat-option>None</mat-option>
               <mat-option *ngFor="let c of allCourses" [value]="c.contact_session_timing">{{c.contact_session_timing}}</mat-option>
             </mat-select>
@@ -66,31 +66,9 @@
       </div>
     </div>
   </div>
-  <!-- <div class="text">
-      <h5>Educator</h5>
-        <form class="example-form">
-            
-            <mat-form-field class="example-full-width" style="width:150px; height: 70px;">
-              <mat-label style="font-size: 14px !important;">Enter Name</mat-label>
-              <input matInput placeholder="Enter name">
-            </mat-form-field>
-          </form>
-          
-    </div> -->
-
-  <!-- <div class="text">
-  <h5>Location & Sub</h5>
-    <form class="example-form">
-        
-        <mat-form-field class="example-full-width" style="width:180px; height: 70px;">
-          <mat-label style="font-size: 14px !important;">Enter Location</mat-label>
-          <input matInput placeholder="Enter name">
-        </mat-form-field>
-      </form>
-      
-</div> -->
 
 </div>
+<!-- {{sortoption}} -->
 <div class="container-fluid">
   <div class="row ">
     <div class="ctable">
@@ -113,7 +91,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let c of allCourses; index as i">
+          <tr *ngFor="let c of allCourses | coursesSort: sortoption; index as i">
             <td>{{i+1}}</td>
             <td>{{c.course_name}}</td>
             <td>{{c.course_mode}}</td>

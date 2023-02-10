@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit{
 
   ){ }
 
+  sortoption: string = '';
   allCourses: Courses[] = [];
   dataSource: any[] = [];
   educator= '';
