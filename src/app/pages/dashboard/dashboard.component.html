@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 excel mb-3">
-        <button mat-raised-button>Export to excel
+        <button mat-raised-button (click)="exportToExcel()">Export to Excel
         </button>
       </div>
     </div>
@@ -100,10 +100,10 @@
             <td>{{c.start_date | date}}</td>
             <td>{{c.end_date | date}}</td>
             <td>{{c.month}}</td>
-            <td>{{c.start_time}}</td>
-            <td>{{c.end_time}}</td>
-            <td>{{c.contact_session_timing}}</td>
-            <td>{{c.venue}}</td>
+            <td>{{timeShort(c.start_time)}}</td>
+            <td>{{timeShort(c.end_time)}}</td>
+            <td>{{timeConverter(c.contact_session_timing)}}</td>
+            <td>{{getLocation(c.venue)}}</td>
             <td>{{c.registration_link}}</td>
           </tr>
         </tbody>

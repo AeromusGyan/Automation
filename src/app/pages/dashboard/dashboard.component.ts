@@ -5,20 +5,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
 import { Courses } from 'src/app/models/courses.model';
 import { CoursesService } from 'src/app/services/courses.service';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit{
   constructor(
     private _courses:CoursesService,
     private _snackBar: MatSnackBar, 
-
+    private excel:ExcelService
   ){ }
 
   sortoption: string = '';
+
   allCourses: Courses[] = [];
   dataSource: any[] = [];
   educator= '';
@@ -31,9 +34,6 @@ export class DashboardComponent implements OnInit{
   ngOnInit(){
     this.getAllCourses();
     this.displayedColumns = ['Offerings Id', 'Course Name', 'CR/VCR', 'Location', 'Educator', 'Start Date', 'End Date', 'Start Time', 'End Time','Contact Session Timing', 'Venue'];
-    console.log(this.displayedColumns);
-    
-    
   }
 
   getAllCourses(){
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit{
           //   this.dataSource.push(this.allCourses[i].cId);            
           // }
           // this.dataSource = this.allCourses;
-          console.log(this.dataSource);
+          // console.log(this.dataSource);
       },
       (err:HttpErrorResponse)=>{
         this._snackBar.open('No Of Slots is required !!', 'Close', {
@@ -64,6 +64,36 @@ export class DashboardComponent implements OnInit{
       return loc;
     }
   }
+
+  timeConverter(time:any){
+    if(time >= '6' || time < '12'){
+      return 'Morning';
+    }
+    else if(time >= '12' || time < '17'){
+      return 'Afternoon';
+    }
+    else if(time >= '17' || time < '21'){
+      return 'Evening';
+    }
+    else{
+      return 'Night';
+    }
+  }
+
+  timeShort(time:any){
+    if(time >= '01' && time <= '12'){
+      return time+' AM';
+    }
+    else{
+      const short = parseFloat(time) -12;
+      return short + ' PM'
+    }
+  }
+
+  exportToExcel(){
+    this.excel.exportAsExcelFile('Infosys Automation System','',this.displayedColumns, this.allCourses,'Infosys Automation System','Sheet1');
+  }
+
 }
 
 
