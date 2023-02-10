@@ -52,12 +52,14 @@ export class AddCoursesComponent implements OnInit{
   getAllEducators(){
     this.api.getActiveEducator().subscribe(
       (res)=>{
-        this.educators = res;
-        console.log(res);
-        
+        this.educators = res;        
       },
       (err:HttpErrorResponse)=>{
-
+        this._snackBar.open('CServer Error!!', 'Close', {
+          duration: this.durationInSeconds * 1000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
       }
     )
   }
@@ -123,24 +125,6 @@ export class AddCoursesComponent implements OnInit{
         horizontalPosition: 'center',
       });
     }
-    // else if (this.courses.course_mode == 'CR') {
-    //   if (this.courses.location == '' || this.courses.location == null) {
-    //     this._snackBar.open('Location is required !!', 'Close', {
-    //       duration: this.durationInSeconds * 1000,
-    //       verticalPosition: 'bottom',
-    //       horizontalPosition: 'center',
-    //     });
-    //   }
-    // }
-    // else if (this.courses.course_mode == 'VCR') {
-    //   if (this.courses.venue == '' || this.courses.venue == null) {
-    //     this._snackBar.open('Venue is required !!', 'Close', {
-    //       duration: this.durationInSeconds * 1000,
-    //       verticalPosition: 'bottom',
-    //       horizontalPosition: 'center',
-    //     });
-    //   }
-    // }
     else {
       this.addCourses();
     }
@@ -149,8 +133,6 @@ export class AddCoursesComponent implements OnInit{
   addCourses() {
     this._courses.addCourses(this.courses).subscribe(
       (data: any) => {
-        //success
-        // console.log(data);
         this._snackBar.open('Successfully done !!','Close', {
           duration: this.durationInSeconds * 1000,
           verticalPosition:'bottom',

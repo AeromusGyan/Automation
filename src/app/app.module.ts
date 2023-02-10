@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { authInterceptorProviders } from './services/auth.interceptor';
 import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
 import { CoursesSortPipe } from './pipes/courses-sort.pipe';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { CoursesSortPipe } from './pipes/courses-sort.pipe';
     RouterModule,
     HttpClientModule,
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, DatePipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

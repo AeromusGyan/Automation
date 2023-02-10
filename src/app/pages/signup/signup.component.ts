@@ -16,7 +16,6 @@ export class SignupComponent implements OnInit {
     private api: LoginService, 
     private http: HttpClient, 
     private _snackBar: MatSnackBar, 
-    // private mailApi: CategoryService
     ) { }
   hide = true;
   memberForm = new FormGroup({
@@ -40,7 +39,6 @@ export class SignupComponent implements OnInit {
   }
 
   Submit() {
-    // alert(JSON.stringify(this.memberForm.value));
     if (this.memberForm.value.username == '' || this.memberForm.value.username == null) {
       this._snackBar.open('Username is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
