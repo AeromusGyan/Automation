@@ -14,14 +14,13 @@ import { ExcelService } from 'src/app/services/excel.service';
 })
 
 export class DashboardComponent implements OnInit{
+  // filename="automation.xlsx"
   constructor(
     private _courses:CoursesService,
     private _snackBar: MatSnackBar, 
     private excel:ExcelService
   ){ }
-
   sortoption: string = '';
-
   allCourses: Courses[] = [];
   dataSource: any[] = [];
   educator= '';
@@ -35,7 +34,6 @@ export class DashboardComponent implements OnInit{
     this.getAllCourses();
     this.displayedColumns = ['Offerings Id', 'Course Name', 'CR/VCR', 'Location', 'Educator', 'Start Date', 'End Date', 'Start Time', 'End Time','Contact Session Timing', 'Venue'];
   }
-
   getAllCourses(){
     this._courses.getAllCourses().subscribe(
       (res)=>{
@@ -95,16 +93,6 @@ export class DashboardComponent implements OnInit{
   }
 
 }
-
-
-
-
-
-
-
-
-
-
 
 export interface PeriodicElement {
   name: string;
