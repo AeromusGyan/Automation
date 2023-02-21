@@ -13,7 +13,6 @@ import { ExcelService } from 'src/app/services/excel.service';
 })
 
 export class DashboardComponent implements OnInit{
-  // filename="automation.xlsx"
   constructor(
     private _courses:CoursesService,
     private _snackBar: MatSnackBar, 
@@ -23,8 +22,6 @@ export class DashboardComponent implements OnInit{
   sortoption: string = '';
   allCourses: Courses[] = [];
   dataSource: any[] = [];
-
-
   educator= '';
   courses= '';
   mode='';
@@ -34,7 +31,7 @@ export class DashboardComponent implements OnInit{
   displayedColumns!: any[];
   ngOnInit(){
     this.getAllCourses();
-    this.displayedColumns = ['Offerings Id', 'Course Name', 'CR/VCR', 'Location', 'Educator', 'Start Date', 'End Date', 'Start Time', 'End Time','Contact Session Timing', 'Venue','Registration Link'];
+    this.displayedColumns = ['Offerings Id','Type', 'Course Name', 'CR/VCR', 'Location', 'Educator', 'Start Date', 'End Date', 'Start Time', 'End Time','Contact Session Timing', 'Venue','Slots','Registration Link'];
    }
   getAllCourses(){
     this._courses.getAllCourses().subscribe(
@@ -44,6 +41,7 @@ export class DashboardComponent implements OnInit{
           this.allCourses.forEach(element => {
             var courseExcel = {
               offerings_id: '',
+              course_type:'',
               course_name: '',
               course_mode:'',
               location:'',
@@ -54,39 +52,25 @@ export class DashboardComponent implements OnInit{
               end_time:'',
               contact_session_timing:'',
               venue:'',
+              no_of_slots:0,
               registration_link:''
             };
             courseExcel.offerings_id = '';
+            courseExcel.course_type = element.course_type;
             courseExcel.course_name = element.course_name;
             courseExcel.course_mode = element.course_mode;
             courseExcel.location = this.getLocation(element.location);
             courseExcel.educator = element.educator.educator_name;
-            courseExcel.start_date = formatDate(element.start_date, 'MMM-d-y', 'en');
-            courseExcel.end_date = formatDate(element.end_date, 'MMM-d-y', 'en');
+            courseExcel.start_date = formatDate(element.start_date, 'dd-MMM-y', 'en');
+            courseExcel.end_date = formatDate(element.end_date, 'dd-MMM-y', 'en');
             courseExcel.start_time = this.timeShort(element.start_time);
             courseExcel.end_time = this.timeShort(element.end_time);
             courseExcel.contact_session_timing = this.timeConverter(element.contact_session_timing);
             courseExcel.venue = this.getLocation(element.venue);
+            courseExcel.no_of_slots = parseInt(element.no_of_slots);
             courseExcel.registration_link = '';    
             this.dataSource.push(courseExcel); 
- 
-            // console.log(this.dataSource);
           });
-          // for (let i = 0; i < this.allCourses.length; i++) {
-          //   this.dataSource[i].offerings_id = i;
-          //   this.dataSource[i].course_name = this.allCourses[i].course_name;
-          //   this.dataSource[i].course_type = this.allCourses[i].course_type;
-          //   this.dataSource[i].location = this.allCourses[i].location;
-          //   this.dataSource[i].educator = this.allCourses[i].educator.educator_name;
-          //   this.dataSource[i].start_date = this.allCourses[i].start_date;
-          //   this.dataSource[i].end_date = this.allCourses[i].end_date;
-          //   this.dataSource[i].start_time = this.allCourses[i].start_time;
-          //   this.dataSource[i].end_time = this.allCourses[i].end_time;
-          //   this.dataSource[i].contact_session_timing = this.allCourses[i].contact_session_timing;
-          //   this.dataSource[i].venue = this.allCourses[i].venue;
-          //   this.dataSource[i].registration_link = '';     
-          //   console.log(this.allCourses[i]);
-          // }   
       },
       (err:HttpErrorResponse)=>{
         this._snackBar.open('No Of Slots is required !!', 'Close', {
