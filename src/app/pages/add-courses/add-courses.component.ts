@@ -12,6 +12,15 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class AddCoursesComponent implements OnInit{
   educators!: any;
+  time={
+    hour:1,
+    minute:30
+  }
+  meridian=true;
+  toggleMeridian() {
+		this.meridian = !this.meridian;
+	}
+
   constructor(
     private api:LoginService,
     private _courses:CoursesService,
@@ -19,6 +28,7 @@ export class AddCoursesComponent implements OnInit{
     ){ 
     // this.userdata = this.api.getUser();
   }
+  
 
   durationInSeconds = 2;
   ngOnInit(): void {
@@ -26,6 +36,7 @@ export class AddCoursesComponent implements OnInit{
   }
 
   userdata!:any;
+ 
 
   courses:Courses={
     cId: 0,
@@ -35,7 +46,14 @@ export class AddCoursesComponent implements OnInit{
     month: '',
     start_time: '',
     end_time: '',
-    contact_session_timing: '',
+    contact_session_timing:{
+      hour:'',
+      minute:'',
+    },
+    contact_session_timing1:{
+      hour:'',
+      minute:'',
+  },
     no_of_slots: '',
     venue: '',
     course_mode: '',
@@ -74,7 +92,7 @@ export class AddCoursesComponent implements OnInit{
       });
     }
     else{
-      this.courses.contact_session_timing = this.courses.start_time + '-' + this.courses.end_time;
+     // this.courses.contact_session_timing = this.courses.start_time + '-' + this.courses.end_time;
     }
     if (this.courses.educator.id == 0 || this.courses.educator.id == null) {
       this._snackBar.open('Instructor is required !!', 'Close', {
@@ -104,13 +122,13 @@ export class AddCoursesComponent implements OnInit{
         horizontalPosition: 'center',
       });
     }
-    else if (this.courses.contact_session_timing == '' || this.courses.contact_session_timing == null) {
-      this._snackBar.open('Contact Session Timing is required !!', 'Close', {
-        duration: this.durationInSeconds * 1000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      });
-    }
+    //else if (this.courses.contact_session_timing == '' || this.courses.contact_session_timing == null) {
+      //this._snackBar.open('Contact Session Timing is required !!', 'Close', {
+       // duration: this.durationInSeconds * 1000,
+        //verticalPosition: 'bottom',
+        //horizontalPosition: 'center',
+      //});
+    
     else if (this.courses.course_mode == '' || this.courses.course_mode == null) {
       this._snackBar.open('Course Mode is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
