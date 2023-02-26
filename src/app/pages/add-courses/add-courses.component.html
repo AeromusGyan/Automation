@@ -62,12 +62,19 @@
                         <div class="col-md-12">
                             <div class="w100 time">
                                 <mat-label>Contact Session Timing</mat-label> <br>
-                            <input type="time" name="contact_session_timing" [(ngModel)]="courses.start_time" matInput
-                                placeholder="Enter here">
-                            <input type="time" name="contact_session_timing" [(ngModel)]="courses.end_time" matInput
-                                placeholder="Enter here">
+                                <div class="inline"><mat-label>from:</mat-label>
+                                    <!--<input matStartTime [(ngModel)]="courses.start_time" [ngModelOptions]="{standalone: true}" >-->
+                                <ngb-timepicker [(ngModel)]="courses.contact_session_timing" [meridian]="meridian"  name="time"></ngb-timepicker>
+                                 </div>&nbsp;
+                                <div class="inline"><mat-label>to:</mat-label>
+                                    <!--<input matEndTime [(ngModel)]="courses.end_time" [ngModelOptions]="{standalone: true}" >-->
+                                <ngb-timepicker [(ngModel)]="courses.contact_session_timing1" [meridian]="meridian" name="time" ></ngb-timepicker></div>
+                            
                             </div>
-                        </div>'
+                        </div>
+                        
+                        
+                        
                         <div class="col-md-12">
                             <mat-form-field class="w100">
                                 <mat-label style="font-size: 14px !important;">CR/VCR</mat-label>

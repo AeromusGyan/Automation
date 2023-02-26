@@ -7,7 +7,14 @@ export interface Courses{
     month:string,
     start_time: string,
     end_time:string,
-    contact_session_timing:string,
+    contact_session_timing:{
+        hour:any,
+        minute:any,
+    },
+    contact_session_timing1:{
+        hour:any,
+        minute:any,
+    },
     no_of_slots:string,
     venue:string,
     location:string;

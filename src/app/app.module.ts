@@ -16,6 +16,13 @@ import { authInterceptorProviders } from './services/auth.interceptor';
 import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
 import { CoursesSortPipe } from './pipes/courses-sort.pipe';
 import { DatePipe } from '@angular/common';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { JsonPipe } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
 
 @NgModule({
   declarations: [
@@ -24,7 +31,9 @@ import { DatePipe } from '@angular/common';
     SignupComponent,
     DashboardComponent,
     AddCoursesComponent,
-    CoursesSortPipe
+    CoursesSortPipe,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -34,9 +43,16 @@ import { DatePipe } from '@angular/common';
     MasterModule,
     FormsModule,
     ReactiveFormsModule,
+    JsonPipe,
     RouterModule,
     HttpClientModule,
-  ],
+    NgxMaterialTimepickerModule,
+    NgbModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    
+    
+    ],
   providers: [authInterceptorProviders, DatePipe ],
   bootstrap: [AppComponent]
 })
