@@ -33,10 +33,20 @@
                         </div>
                         <div class="col-md-12">
                             <mat-form-field class="w100">
-                                <mat-label>Course Name</mat-label>
-                                <input type="course_name" name="course_name" [(ngModel)]="courses.course_name" matInput
-                                    placeholder="Enter here">
-                                <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                                <mat-label style="font-size: 14px !important;">Course Name</mat-label>
+                                <mat-select [(value)]="courses.course_type">
+                                    <mat-option>None</mat-option>
+                                    <mat-option value="Agile Scrum Process">Agile Scrum Process</mat-option>
+                                    <mat-option value="Agilty and Kanban">Agilty and Kanban</mat-option>
+                                    <mat-option value="Agility and Scrum">Agilty and Scrum</mat-option>
+                                    <mat-option value="Continuous Integration using Java">Continuous Integration using Java</mat-option>
+                                    <mat-option value="Continuous Integration using .Net">Continuous Integration using .Net</mat-option>
+                                    <mat-option value="DevOps and the Building Blocks">DevOps and the Building Blocks</mat-option>
+                                    <mat-option value="DevOps CICD-open source tool chain">DevOps CICD-open source tool chain</mat-option>
+                                    <mat-option value="Infosys Scrum Master">Infosys Scrum Master</mat-option>
+                                    <mat-option value="Introduction to Scaled Agile Framework">Introduction to Scaled Agile Framework</mat-option>
+                                    <mat-option value="SCM using GIT">SCM using GIT</mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-md-12">
@@ -110,6 +120,13 @@
                                     placeholder="Enter here">
                                 <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
                                 <mat-error>Location is required</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w100">
+                                <mat-label>Venue</mat-label>
+                                <input type="text" name="venue" [(ngModel)]="courses.venue" matInput
+                                    placeholder="Enter here">
+                                <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                                <mat-error>Venue is required</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="container text-center btns">
