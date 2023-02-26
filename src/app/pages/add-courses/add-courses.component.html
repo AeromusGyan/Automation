@@ -73,12 +73,13 @@
                             <div class="w100 time">
                                 <mat-label>Contact Session Timing</mat-label> <br>
                                 <div class="inline"><mat-label>from:</mat-label>
-                                    <!--<input matStartTime [(ngModel)]="courses.start_time" [ngModelOptions]="{standalone: true}" >-->
-                                <ngb-timepicker [(ngModel)]="courses.contact_session_timing" [meridian]="meridian"  name="time"></ngb-timepicker>
+                                    <input type="time" [(ngModel)]="courses.start_time" [ngModelOptions]="{standalone: true}" >
+                                <!-- <ngb-timepicker [(ngModel)]="courses.contact_session_timing" [meridian]="meridian"  name="time"></ngb-timepicker> -->
                                  </div>&nbsp;
                                 <div class="inline"><mat-label>to:</mat-label>
-                                    <!--<input matEndTime [(ngModel)]="courses.end_time" [ngModelOptions]="{standalone: true}" >-->
-                                <ngb-timepicker [(ngModel)]="courses.contact_session_timing1" [meridian]="meridian" name="time" ></ngb-timepicker></div>
+                                    <input type="time" [(ngModel)]="courses.end_time" [ngModelOptions]="{standalone: true}" >
+                                <!-- <ngb-timepicker [(ngModel)]="courses.contact_session_timing1" [meridian]="meridian" name="time" ></ngb-timepicker> -->
+                            </div>
                             
                             </div>
                         </div>
