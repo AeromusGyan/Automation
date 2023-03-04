@@ -37,7 +37,6 @@ export class DashboardComponent implements OnInit{
     this._courses.getAllCourses().subscribe(
       (res)=>{
           this.allCourses = res;
-
           this.allCourses.forEach(element => {
             var courseExcel = {
               offerings_id: '',
@@ -73,7 +72,7 @@ export class DashboardComponent implements OnInit{
           });
       },
       (err:HttpErrorResponse)=>{
-        this._snackBar.open('No Of Slots is required !!', 'Close', {
+        this._snackBar.open('Server error !!', 'Close', {
           duration: 3000,
           verticalPosition: 'bottom',
           horizontalPosition: 'center',

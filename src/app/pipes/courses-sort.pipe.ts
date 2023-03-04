@@ -5,13 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CoursesSortPipe implements PipeTransform {
 
-  
+
   transform(value: any[], args?: any): any[] {
     // console.log(value, args);
+    const data: any[] = [];
     for (let index = 0; index < value.length; index++) {
-    const data:any[] = [];
       if (args === value[index].course_name) {
         data.push(value[index]);
+        console.log(data);
+        
         return data;
       }
       else if (args === value[index].educator.educator_name) {
@@ -36,7 +38,6 @@ export class CoursesSortPipe implements PipeTransform {
       }
     }
     // 
-
     return value;
   }
 

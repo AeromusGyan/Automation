@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Courses } from 'src/app/models/courses.model';
 import { CoursesService } from 'src/app/services/courses.service';
@@ -17,7 +18,6 @@ export class AddCoursesComponent implements OnInit{
     private _courses:CoursesService,
     private _snackBar: MatSnackBar, 
     ){ 
-    // this.userdata = this.api.getUser();
   }
 
   durationInSeconds = 2;
@@ -27,27 +27,46 @@ export class AddCoursesComponent implements OnInit{
 
   userdata!:any;
 
-  courses:Courses={
-    cId: 0,
-    course_name: '',
-    start_date: '',
-    end_date: '',
-    month: '',
-    start_time: '',
-    end_time: '',
-    contact_session_timing: '',
-    no_of_slots: '',
-    venue: '',
-    course_mode: '',
-    registration_link: '',
-    status: true,
-    educator: {
-      id: 0,
-      educator_name:''
-    },
-    location: '',
-    course_type: ''
-  }
+  // courses:Courses={
+  //   cId: 0,
+  //   course_name: '',
+  //   start_date: '',
+  //   end_date: '',
+  //   month: '',
+  //   start_time: '',
+  //   end_time: '',
+  //   contact_session_timing: '',
+  //   no_of_slots: '',
+  //   venue: '',
+  //   course_mode: '',
+  //   registration_link: '',
+  //   status: true,
+  //   educator: {
+  //     id: 0,
+  //     educator_name:''
+  //   },
+  //   location: '',
+  //   course_type: ''
+  // }
+// , [Validators.required, Validators.min(30), Validators.max(300)]
+  courses = new FormGroup({
+    course_name: new FormControl('', [Validators.required]),
+    start_date: new FormControl('', [Validators.required]),
+    end_date: new FormControl('', [Validators.required]),
+    month: new FormControl(''),
+    start_time: new FormControl('', [Validators.required]),
+    end_time: new FormControl('', [Validators.required]),
+    contact_session_timing: new FormControl(''),
+    no_of_slots: new FormControl(''),
+    venue: new FormControl(' ', Validators.required),
+    course_mode: new FormControl('', [Validators.required]),
+    status: new FormControl(true),
+    location: new FormControl('', [Validators.required]),
+    course_type: new FormControl('', [Validators.required]),
+    educator: new FormGroup({
+      id: new FormControl(null, [Validators.required]),
+    })
+  })
 
   getAllEducators(){
     this.api.getActiveEducator().subscribe(
@@ -55,7 +74,7 @@ export class AddCoursesComponent implements OnInit{
         this.educators = res;        
       },
       (err:HttpErrorResponse)=>{
-        this._snackBar.open('CServer Error!!', 'Close', {
+        this._snackBar.open('Server Error!!', 'Close', {
           duration: this.durationInSeconds * 1000,
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
@@ -63,10 +82,49 @@ export class AddCoursesComponent implements OnInit{
       }
     )
   }
+  allCourses:any[] = [];
+
+  getAllCourses(){
+    this._courses.getAllCourses().subscribe(
+      (res)=>{
+        this.allCourses = res;
+      },
+      (error:HttpErrorResponse)=>{
+        this._snackBar.open('Server Error!!', 'Close', {
+          duration: this.durationInSeconds * 1000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      }
+    )
+  }
+  // educator , date , time
+  onCheckCourseValidator(){
+    
+  }
+
+  onVenue(){
+    if (this.courses.value.course_mode == "VCR") {
+      this.courses.value.venue = "Virtual Classroom - India";
+    }
+    else{
+      this.courses.value.venue = "";
+    }
+  }
 
   onSubmit() {
-    // alert(JSON.stringify(this.memberForm.value));
-    if (this.courses.start_time == '' || this.courses.start_time == null || this.courses.end_time == '' || this.courses.end_time == null) {
+
+    if (this.courses.value.course_type == "RBT") {
+      if (this.courses.value.course_mode == "VCR") {
+        this.courses.value.no_of_slots = '300';
+      }
+    }
+    else{
+      this.courses.value.no_of_slots = '60';
+    }
+    
+    // return
+    if (this.courses.value.start_time == '' || this.courses.value.start_time == null || this.courses.value.end_time == '' || this.courses.value.end_time == null) {
       this._snackBar.open('Contact Session Timing is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
@@ -74,51 +132,51 @@ export class AddCoursesComponent implements OnInit{
       });
     }
     else{
-      this.courses.contact_session_timing = this.courses.start_time + '-' + this.courses.end_time;
+      this.courses.value.contact_session_timing = this.courses.value.start_time + '-' + this.courses.value.end_time;
     }
-    if (this.courses.educator.id == 0 || this.courses.educator.id == null) {
+    if (this.courses.value.educator?.id == undefined || this.courses.value.educator?.id == null) {
       this._snackBar.open('Instructor is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
     }
-    else if (this.courses.course_name == '' || this.courses.course_name == null) {
+    else if (this.courses.value.course_name == '' || this.courses.value.course_name == null) {
       this._snackBar.open('Course Name is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
     }
-    else if (this.courses.start_date == '' || this.courses.start_date == null) {
+    else if (this.courses.value.start_date == '' || this.courses.value.start_date == null) {
       this._snackBar.open('Start Date is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
     }
-    else if (this.courses.end_date == '' || this.courses.end_date == null) {
+    else if (this.courses.value.end_date == '' || this.courses.value.end_date == null) {
       this._snackBar.open('End Date is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
     }
-    else if (this.courses.contact_session_timing == '' || this.courses.contact_session_timing == null) {
+    else if (this.courses.value.contact_session_timing == '' || this.courses.value.contact_session_timing == null) {
       this._snackBar.open('Contact Session Timing is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
     }
-    else if (this.courses.course_mode == '' || this.courses.course_mode == null) {
+    else if (this.courses.value.course_mode == '' || this.courses.value.course_mode == null) {
       this._snackBar.open('Course Mode is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
     }
-    else if (this.courses.no_of_slots == '' || this.courses.no_of_slots == null) {
+    else if (this.courses.value.no_of_slots == '' || this.courses.value.no_of_slots == null) {
       this._snackBar.open('No Of Slots is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
         verticalPosition: 'bottom',
@@ -126,12 +184,16 @@ export class AddCoursesComponent implements OnInit{
       });
     }
     else {
+      // const month = this.courses.value.start_date;
+      // this.courses.value.month = month.slice(3,7);
+    alert(JSON.stringify(this.courses.value));
+    // return
       this.addCourses();
     }
   }
   
   addCourses() {
-    this._courses.addCourses(this.courses).subscribe(
+    this._courses.addCourses(this.courses.value).subscribe(
       (data: any) => {
         this._snackBar.open('Successfully done !!','Close', {
           duration: this.durationInSeconds * 1000,
@@ -146,4 +208,32 @@ export class AddCoursesComponent implements OnInit{
         });
       })
   }
+
+  courseDetails:any[] = [
+    {name: 'Agility and Scrum', day:1, duration:2, level:1},
+    {name: 'Introduction to DevOps', day:1, duration:2, level:1},
+    {name: 'Agility and Kanban', day:1, duration:2, level:1},
+    {name: 'Agile Scrum in Practice', day:3, duration:3.5, level:2},
+    {name: 'Kanban in Practice', day:3, duration:3.5, level:2 },
+    {name: 'ALM with Jira Agile', day:1, duration:3.5, level: 2},
+    {name: 'Introduction to Scaled Agile Framework', day:1, duration:4 , level:3},
+    {name: 'DevOps CICD Dotnet', day:4, duration:3.5, level:3},
+    {name: 'SCM using GIT', day:1, duration:3.5, level:2},
+    {name: 'DevOps CI/CICD', day:5, duration:4, level:3},
+    {name: 'DevOps using Ansible', day:3, duration:4, level:3}
+  ]
 }
+
+// <!-- o
+//     Agility and Scrum (1 x 2 hours) o 
+//     Introduction to DevOps (1 x 2 hours) o 
+//     Agility and Kanban (1 x 2 hours) o 
+//     Agile Scrum in Practice (3 x 3.5 hours) o 
+//     Kanban in Practice(3 x 3.5 hours) o 
+//     ALM with Jira Agile (1 x 3.5 hours) o 
+//     Introduction to Scaled Agile Framework (1 x 4 hours) o 
+//     DevOps CICD Dotnet (4 x 3.5 hours) o 
+//     SCM using GIT (1 x 3.5 hours) o 
+//     DevOps CI/CICD (5 x 4 hours) o 
+//     DevOps using Ansible (3 x 4 hour 
+// -->

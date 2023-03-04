@@ -88,8 +88,9 @@
             <th>End Time</th>
             <th>Contact Session Timing</th>
             <th>Venue</th>
-            <th>Slots</th>
-            <th>Registration Link</th>
+            <th>Slots to be Opened</th>
+            <th>Lex Link</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -109,6 +110,7 @@
             <td>{{getLocation(c.venue)}}</td>
             <td>{{c.no_of_slots}}</td>
             <td>{{c.registration_link}}</td>
+            <td><button mat-mini-fab color="primary"><mat-icon>edit</mat-icon></button></td>
           </tr>
         </tbody>
       </table>
