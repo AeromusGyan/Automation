@@ -49,6 +49,7 @@ export class AddCoursesComponent implements OnInit{
   //   course_type: ''
   // }
 // , [Validators.required, Validators.min(30), Validators.max(300)]
+
   courses = new FormGroup({
     course_name: new FormControl('', [Validators.required]),
     start_date: new FormControl('', [Validators.required]),
@@ -100,7 +101,7 @@ export class AddCoursesComponent implements OnInit{
   }
   // educator , date , time
   onCheckCourseValidator(){
-    
+
   }
 
   onVenue(){
