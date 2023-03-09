@@ -103,10 +103,10 @@ export class AddCoursesComponent implements OnInit{
   onCheckCourseValidator(){
 
   }
-
   onVenue(){
     if (this.courses.value.course_mode == "VCR") {
       this.courses.value.venue = "Virtual Classroom - India";
+      console.log(this.courses.value.venue);
     }
     else{
       this.courses.value.venue = "";
@@ -114,10 +114,17 @@ export class AddCoursesComponent implements OnInit{
   }
 
   onSubmit() {
+    
 
     if (this.courses.value.course_type == "RBT") {
       if (this.courses.value.course_mode == "VCR") {
-        this.courses.value.no_of_slots = '300';
+        if (this.courses.value.course_name=="Agility and Scrum"|| this.courses.value.course_name=="Introduction to DevOps" ||
+        this.courses.value.course_name=="Agility and Kanban") {
+          this.courses.value.no_of_slots = '300'
+        }
+        else{
+          this.courses.value.no_of_slots = '99'
+        }
       }
     }
     else{
