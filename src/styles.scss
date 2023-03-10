@@ -5,3 +5,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .w100{
     width: 100%;
 }
+.time,.month{
+    padding: 1px 20px;
+}
+.time input{
+    width: 80%;
+    margin-left: 10px;
+}
+.inline{
+    display: inline-block;
+    width: 50%;
+}

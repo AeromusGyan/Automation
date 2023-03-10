@@ -80,7 +80,7 @@ export class LoginComponent {
         },
         (error) => {
           console.log(error);
-          this._snackBar.open('Invalid User found !!','Close', {
+          this._snackBar.open('Server Error !!','Close', {
             duration: this.durationInSeconds * 1000,
             verticalPosition:'bottom',
         });

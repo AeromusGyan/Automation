@@ -21,6 +21,12 @@
       </a>
     </div>
     <div *ngIf="userdata">
+      
+      <a routerLink="dashboard" class="m-2">
+        <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          Dashboard
+        </button>
+      </a>
       <a routerLink="add-courses">
         <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
           Add Courses
@@ -30,11 +36,6 @@
         <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
           Logout
           <!-- <mat-icon>login</mat-icon> -->
-        </button>
-      </a>
-      <a routerLink="dashboard">
-        <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-          Dashboard
         </button>
       </a>
     </div>

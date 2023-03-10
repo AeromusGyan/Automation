@@ -20,7 +20,6 @@ export class HeaderComponent {
 
   logout(){
     this.api.logout();
-
     window.location.href = "/login"
   }
 }

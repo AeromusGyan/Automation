@@ -23,6 +23,7 @@ export class AddCoursesComponent implements OnInit{
   durationInSeconds = 2;
   ngOnInit(): void {
     this.getAllEducators();
+    this.getAllCourses();
   }
 
   userdata!:any;
@@ -89,6 +90,7 @@ export class AddCoursesComponent implements OnInit{
     this._courses.getAllCourses().subscribe(
       (res)=>{
         this.allCourses = res;
+        localStorage.setItem("courseData", JSON.stringify(this.allCourses));
       },
       (error:HttpErrorResponse)=>{
         this._snackBar.open('Server Error!!', 'Close', {
@@ -99,10 +101,34 @@ export class AddCoursesComponent implements OnInit{
       }
     )
   }
+
+  isExist:any = false;
+
   // educator , date , time
   onCheckCourseValidator(){
-
+    let data = new Array();
+    let course = localStorage.getItem("courseData")!;
+    data = JSON.parse(course);
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+      // console.log(JSON.stringify(data[index]));
+      if (element.course_name == this.courses.value.course_name) {
+        console.log(element.course_name);
+        if (element.educator.id == this.courses.value.educator?.id) {
+          console.log(element.educator.id);
+          if (element.start_date == this.courses.value.start_date) {
+            console.log(element.start_date);
+            if (element.start_time == this.courses.value.start_time) {
+              this.isExist = false;
+              console.log(element.start_time);
+              break
+            }
+          }
+        }
+      }
+    }
   }
+  
   onVenue(){
     if (this.courses.value.course_mode == "VCR") {
       this.courses.value.venue = "Virtual Classroom - India";
@@ -114,8 +140,14 @@ export class AddCoursesComponent implements OnInit{
   }
 
   onSubmit() {
-    
-
+    this.onCheckCourseValidator();
+    if (this.isExist == false) {
+      this._snackBar.open('Course is already exist on that date and time for that Educator !!', 'Close', {
+        duration: this.durationInSeconds * 2000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      });
+    }
     if (this.courses.value.course_type == "RBT") {
       if (this.courses.value.course_mode == "VCR") {
         if (this.courses.value.course_name=="Agility and Scrum"|| this.courses.value.course_name=="Introduction to DevOps" ||
@@ -195,7 +227,7 @@ export class AddCoursesComponent implements OnInit{
       // const month = this.courses.value.start_date;
       // this.courses.value.month = month.slice(3,7);
     alert(JSON.stringify(this.courses.value));
-    // return
+    return
       this.addCourses();
     }
   }
