@@ -106,16 +106,20 @@ export class DashboardComponent implements OnInit{
   }
 
   timeShort(time:any){
+    const minutes = time.slice(3,5);
+    // console.log();
+    
     if(time >= '01' && time <= '12'){
-      return time+' AM';
+      return time  +  ' AM';
     }
     else{
       const short = parseFloat(time) -12;
-      return short + ' PM'
+      return short + ':' + minutes +  ' PM';
     }
   }
 
   exportToExcel(){
     this.excel.exportAsExcelFile('Infosys Automation System','',this.displayedColumns, this.dataSource,'Infosys Automation System','Sheet1');
   }
+  
 }

@@ -1,6 +1,6 @@
 # Automation
 
-Project Url :- Hosting URL: https://automation-system-schedulo.web.app
+Project Url :- Hosting URL: https://automation.sciaku.com
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.1.
 
