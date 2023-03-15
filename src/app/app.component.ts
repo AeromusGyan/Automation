@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Automation';
+  constructor(){
+    if(navigator.onLine) {
+      console.log("You are Online")
+     }
+     else {
+      alert("You are Offline")
+     }
+  }
 }

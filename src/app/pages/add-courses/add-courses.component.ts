@@ -102,7 +102,7 @@ export class AddCoursesComponent implements OnInit{
     )
   }
 
-  isExist:any = false;
+  isExist:any = true;
 
   // educator , date , time
   onCheckCourseValidator(){
@@ -148,6 +148,7 @@ export class AddCoursesComponent implements OnInit{
         horizontalPosition: 'center',
       });
     }
+    
     if (this.courses.value.course_type == "RBT") {
       if (this.courses.value.course_mode == "VCR") {
         if (this.courses.value.course_name=="Agility and Scrum"|| this.courses.value.course_name=="Introduction to DevOps" ||
@@ -226,8 +227,8 @@ export class AddCoursesComponent implements OnInit{
     else {
       // const month = this.courses.value.start_date;
       // this.courses.value.month = month.slice(3,7);
-    alert(JSON.stringify(this.courses.value));
-    return
+    // alert(JSON.stringify(this.courses.value));
+    // return
       this.addCourses();
     }
   }

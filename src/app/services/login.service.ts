@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -8,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   constructor(private http:HttpClient) { }
+
   private baseUrl:string = environment.baseUrl;
 
   // generate token
@@ -18,6 +20,8 @@ export class LoginService {
 
   loginUser(token:any){
     localStorage.setItem("token",token);
+    var jdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss','en');
+    localStorage.setItem("jdate",jdate);
   }
 
   // get Current user details
@@ -37,15 +41,22 @@ export class LoginService {
     }
   }
   // logout
+
   logout(){
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     return true;
   }
-
+  checkTokenExpiration(){
+    let jdateStr = localStorage.getItem("jdate");
+    
+    console.log(jdateStr);
+    
+  }
   // get user
   getToken()
   {
+    this.checkTokenExpiration();
     return localStorage.getItem("token");
   }
   
@@ -74,19 +85,20 @@ export class LoginService {
   //   return user.authorities[0].authority;
   // }
 
-
-
   // Educator Registration
 
   addMember(member:any){
     return this.http.post(`${this.baseUrl}/educator/add`,member)
   }
+
   // getAllMember(){
   //   return this.http.get(`${this.baseUrl}/educator/`);
   // }
+
   getMemberByEmail(email:any){
     return this.http.get(`${this.baseUrl}/educator/update/`+email);
   }
+
   updatePassword(userData:any){
     return this.http.put(`${this.baseUrl}/educator/update/password`,userData);
   }
@@ -94,6 +106,7 @@ export class LoginService {
   updateProfile(userData:any){
     return this.http.put(`${this.baseUrl}/educator/update`,userData);
   }
+  
   deleteUser(id:number){
     return this.http.delete(`${this.baseUrl}/educator/`+ id);
   }
@@ -101,4 +114,5 @@ export class LoginService {
   getActiveEducator(){
     return this.http.get(`${this.baseUrl}/educator/active`);
   }
+
 }
