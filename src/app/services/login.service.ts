@@ -21,6 +21,7 @@ export class LoginService {
   loginUser(token:any){
     localStorage.setItem("token",token);
     var jdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss','en');
+    // var jdate = new Date();
     localStorage.setItem("jdate",jdate);
   }
 
@@ -48,9 +49,12 @@ export class LoginService {
     return true;
   }
   checkTokenExpiration(){
-    let jdateStr = localStorage.getItem("jdate");
-    
-    console.log(jdateStr);
+    let jdateStr = localStorage.getItem("jdate")!;
+
+    const endDate = new Date();
+    let fdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss', 'en');
+    endDate.setDate(endDate.getDate() + 10);
+    console.log(fdate);
     
   }
   // get user

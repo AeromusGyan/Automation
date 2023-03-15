@@ -60,7 +60,7 @@ export class AddCoursesComponent implements OnInit{
     end_time: new FormControl('', [Validators.required]),
     contact_session_timing: new FormControl(''),
     no_of_slots: new FormControl(''),
-    venue: new FormControl(' ', Validators.required),
+    venue: new FormControl('', Validators.required),
     course_mode: new FormControl('', [Validators.required]),
     status: new FormControl(true),
     location: new FormControl('', [Validators.required]),
@@ -108,19 +108,21 @@ export class AddCoursesComponent implements OnInit{
   onCheckCourseValidator(){
     let data = new Array();
     let course = localStorage.getItem("courseData")!;
+    const startDate = this.courses.get('start_date')?.value!;
+    const sDate = new Date(startDate);
+    sDate.setDate(sDate.getDate() + 1);
+    // this.courses.value.start_date == sDate.toISOString().substring(0, 10);
+    this.courses.get('start_date')!.setValue(sDate.toISOString().substring(0, 10));
     data = JSON.parse(course);
+
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-      // console.log(JSON.stringify(data[index]));
       if (element.course_name == this.courses.value.course_name) {
-        console.log(element.course_name);
         if (element.educator.id == this.courses.value.educator?.id) {
-          console.log(element.educator.id);
-          if (element.start_date == this.courses.value.start_date) {
-            console.log(element.start_date);
+          console.log(this.courses.value.start_date);
+          if (element.start_date == this.courses.value.start_date ) {
             if (element.start_time == this.courses.value.start_time) {
               this.isExist = false;
-              console.log(element.start_time);
               break
             }
           }
@@ -131,8 +133,7 @@ export class AddCoursesComponent implements OnInit{
   
   onVenue(){
     if (this.courses.value.course_mode == "VCR") {
-      this.courses.value.venue = "Virtual Classroom - India";
-      console.log(this.courses.value.venue);
+      this.courses.get('venue')!.setValue("Virtual Classroom - India");
     }
     else{
       this.courses.value.venue = "";
@@ -141,14 +142,6 @@ export class AddCoursesComponent implements OnInit{
 
   onSubmit() {
     this.onCheckCourseValidator();
-    if (this.isExist == false) {
-      this._snackBar.open('Course is already exist on that date and time for that Educator !!', 'Close', {
-        duration: this.durationInSeconds * 2000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      });
-    }
-    
     if (this.courses.value.course_type == "RBT") {
       if (this.courses.value.course_mode == "VCR") {
         if (this.courses.value.course_name=="Agility and Scrum"|| this.courses.value.course_name=="Introduction to DevOps" ||
@@ -163,8 +156,6 @@ export class AddCoursesComponent implements OnInit{
     else{
       this.courses.value.no_of_slots = '60';
     }
-    
-    // return
     if (this.courses.value.start_time == '' || this.courses.value.start_time == null || this.courses.value.end_time == '' || this.courses.value.end_time == null) {
       this._snackBar.open('Contact Session Timing is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
@@ -229,13 +220,34 @@ export class AddCoursesComponent implements OnInit{
       // this.courses.value.month = month.slice(3,7);
     // alert(JSON.stringify(this.courses.value));
     // return
+    if (this.isExist == false) {
+      this._snackBar.open('Course is already exist on that date and time for that Educator !!', 'Close', {
+        duration: this.durationInSeconds * 2000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      });
+      setTimeout(() => {
+        
+      // this.courses.reset();
+        this._snackBar.open('Please choose another educator or Course or Date or Time!!', 'Close', {
+          duration: this.durationInSeconds * 2000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      }, 4000);
+      this.courses.reset();
+    }
+    else{
       this.addCourses();
+      this.courses.reset();
+    }
     }
   }
   
   addCourses() {
     this._courses.addCourses(this.courses.value).subscribe(
       (data: any) => {
+        this.getAllCourses();
         this._snackBar.open('Successfully done !!','Close', {
           duration: this.durationInSeconds * 1000,
           verticalPosition:'bottom',
@@ -267,12 +279,18 @@ export class AddCoursesComponent implements OnInit{
   updateEndDate(): void {
     const courseName = this.courses.get('course_name')!.value;
     const startDate = this.courses.get('start_date')!.value;
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
     if (startDate) {
       const course = this.courseDetails.find(course => course.name === courseName);
-      const day = course ? course.day : 0;
+      const day = course ? course.day : 1;
       const endDate = new Date(startDate);
       endDate.setDate(endDate.getDate() + day);
-      this.courses.get('end_date')!.setValue(endDate.toISOString().substring(0, 10));
+      this.courses.get('end_date')!.setValue(endDate.toISOString().substring(0, 10));  
+      console.log(endDate.toISOString().substring(0, 10));
+      
+      this.courses.get('month')!.setValue(monthNames[endDate.getMonth()] + '-' + endDate.getFullYear());
     }
   }
   

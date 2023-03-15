@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
 const routes: Routes = [
   // {path:'', redirectTo:'login'},
+  {path:'', redirectTo:'/dashboard', pathMatch:'full'},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
