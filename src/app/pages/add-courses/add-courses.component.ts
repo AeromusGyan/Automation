@@ -263,6 +263,20 @@ export class AddCoursesComponent implements OnInit{
     {name: 'DevOps CI/CICD', day:5, duration:4, level:3},
     {name: 'DevOps using Ansible', day:3, duration:4, level:3}
   ]
+
+  updateEndDate(): void {
+    const courseName = this.courses.get('course_name')!.value;
+    const startDate = this.courses.get('start_date')!.value;
+    if (startDate) {
+      const course = this.courseDetails.find(course => course.name === courseName);
+      const day = course ? course.day : 0;
+      const endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + day);
+      this.courses.get('end_date')!.setValue(endDate.toISOString().substring(0, 10));
+    }
+  }
+  
+  
 }
 
 // <!-- o
