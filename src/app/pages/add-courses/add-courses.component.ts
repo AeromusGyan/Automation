@@ -28,6 +28,9 @@ export class AddCoursesComponent implements OnInit{
 
   userdata!:any;
 
+  endTime='';
+  
+
   // courses:Courses={
   //   cId: 0,
   //   course_name: '',
@@ -293,6 +296,28 @@ export class AddCoursesComponent implements OnInit{
       this.courses.get('month')!.setValue(monthNames[endDate.getMonth()] + '-' + endDate.getFullYear());
     }
   }
+
+  calculateEndTime() {
+    const selectedCourse: any = this.courseDetails.find(course => course.name === this.courses.get('course_name')!.value);
+    const selectedStartTime = this.courses.get('start_time')!.value;
+  
+    const durationInHours = selectedCourse.duration;
+    const [startHour, startMinute] = selectedStartTime!.split(':');
+  
+    let endHour = parseInt(startHour) + Math.floor(durationInHours);
+    let endMinute = parseInt(startMinute) + (durationInHours % 1) * 60;
+    if (endMinute > 59) {
+      endHour += Math.floor(endMinute / 60);
+      endMinute = endMinute % 60;
+    }
+  
+    const endTime = `${endHour.toString().padStart(2,'0')}:${endMinute.toString().padStart(2, '0')}`;
+  
+    this.courses.patchValue({ end_time: endTime });
+  }
+  
+      
+  
   
   
 }
