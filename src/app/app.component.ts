@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Automation';
-  constructor(){
+  
+  userdata!:any;
+  logout(){
+    this.api.logout();
+    window.location.href = "/login"
+  }
+  constructor(private api:LoginService){
+    // console.log(this.userdata);
+    
+    this.userdata = this.api.getUser();
     if(navigator.onLine) {
       console.log("You are Online")
      }
