@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 const MaterialComponents=[
   MatButtonModule,
@@ -44,7 +45,7 @@ const MaterialComponents=[
   MatTableModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  
+  MatSidenavModule
 ];
 
 @NgModule({

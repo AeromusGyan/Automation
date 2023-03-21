@@ -296,8 +296,6 @@ export class AddCoursesComponent implements OnInit{
       this.courses.get('month')!.setValue(monthNames[endDate.getMonth()] + '-' + endDate.getFullYear());
     }
   }
-<<<<<<< HEAD
-=======
 
   calculateEndTime() {
     const selectedCourse: any = this.courseDetails.find(course => course.name === this.courses.get('course_name')!.value);
@@ -312,17 +310,10 @@ export class AddCoursesComponent implements OnInit{
       endHour += Math.floor(endMinute / 60);
       endMinute = endMinute % 60;
     }
-  
     const endTime = `${endHour.toString().padStart(2,'0')}:${endMinute.toString().padStart(2, '0')}`;
-  
     this.courses.patchValue({ end_time: endTime });
   }
-  
-      
-  
-  
-  
->>>>>>> d54e13b4ed37d9d7ad3c02cf9b373227e0f1f6b4
+
 }
 
 // <!-- o
