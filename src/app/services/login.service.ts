@@ -20,9 +20,10 @@ export class LoginService {
 
   loginUser(token:any){
     localStorage.setItem("token",token);
-    var jdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss','en');
+    // var jdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss','en');
+    var jdate = new Date();
     // var jdate = new Date();
-    localStorage.setItem("jdate",jdate);
+    localStorage.setItem("jdate",jdate.toUTCString());
   }
 
   // get Current user details
@@ -51,10 +52,10 @@ export class LoginService {
   checkTokenExpiration(){
     let jdateStr = localStorage.getItem("jdate")!;
 
-    const endDate = new Date();
+    const endDate = new Date(jdateStr);
     let fdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss', 'en');
-    endDate.setDate(endDate.getDate() + 10);
-    console.log(fdate);
+    // endDate.setDate(endDate.getHours() + 10);
+    console.log(endDate.getUTCHours() + 10);
     
   }
   // get user

@@ -293,8 +293,6 @@ export class AddCoursesComponent implements OnInit{
       this.courses.get('month')!.setValue(monthNames[endDate.getMonth()] + '-' + endDate.getFullYear());
     }
   }
-  
-  
 }
 
 // <!-- o
