@@ -1,6 +1,8 @@
+
 .example-spacer {
     flex: 1 1 auto;
   }
+
 a{
   text-decoration: none;
   color: #fff;
@@ -33,5 +35,32 @@ a{
 }
 
 .example-sidenav {
-  padding: 20px;
+    background-color: #3f51b5;
+    overflow: hidden;
+  padding: 10px;
+}
+
+.example-sidenav .row div a button{
+    width: 100%;
+}
+.atdrawer{
+    display: none;
+}
+.atclose{
+    float: right;
+    color: #fff;
+}
+@media screen and (max-width: 600px) {
+    .drawer {
+      background-color: olive;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .atdrawer {
+      display: block;
+    }
+    .menu{
+        display: none;
+    }
 }

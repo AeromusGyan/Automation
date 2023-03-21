@@ -1,64 +1,100 @@
-
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      <p>Auto-resizing sidenav</p>
+    <mat-drawer #drawer class="example-sidenav" position="end" mode="over">     
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" mat-icon-button class="example-icon atclose" (click)="drawer.toggle()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <div *ngIf="userdata == null" class="col-md-12">
+               <div class="col-md-12 mt-2">
+                <a routerLink="login">
+                    <button mat-raised-button>Login</button>
+                </a>
+               </div>
+                <div class="col-md-12 mt-2">
+                    <a routerLink="signup">
+                        <button mat-raised-button class=" ">Signup</button>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="userdata" class="col-md-12">
+                <div class="col-md-12 mt-2">
+                    <a routerLink="dashboard">
+                        <button mat-raised-button>Home</button>
+                    </a>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <a routerLink="add-courses">
+                        <button mat-raised-button>Add Courses</button>
+                    </a>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <a (click)="logout()">
+                        <button mat-raised-button>Logout</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
     </mat-drawer>
-  
-    <div class="example-sidenav-content">
-      <p>
-        <mat-toolbar color="primary">
-          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>calendar_month</mat-icon>
-          </button>
-          <a routerLink="/dashboard">
-            <span>Automation</span>
-          </a>
-          <span class="example-spacer"></span>
-          <button type="button" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
-            <mat-icon>menu</mat-icon>
-          </button>
-          <div *ngIf="userdata == null">
-            <a routerLink="login" class="m-2">
-              <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                Login
-                <!-- <mat-icon>login</mat-icon> -->
-              </button>
-            </a>
-            <a routerLink="signup">
-              <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                Signup
-              </button>
-            </a>
-          </div>
-          <div *ngIf="userdata">
-            
-            <a routerLink="dashboard" class="m-2">
-              <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                Dashboard
-              </button>
-            </a>
-            <a routerLink="add-courses">
-              <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                Add Courses
-              </button>
-            </a>
-            <a (click)="logout()" class="m-2">
-              <button mat-raised-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                Logout
-                <!-- <mat-icon>login</mat-icon> -->
-              </button>
-            </a>
-          </div>
-        </mat-toolbar>
-      </p>
-      <div style="margin-top: 80px;">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  
-  </mat-drawer-container>
 
-  
+    <div class="example-sidenav-content">
+        <p>
+            <mat-toolbar color="primary">
+                <button mat-icon-button class="example-icon">
+                    <mat-icon>calendar_month</mat-icon>
+                </button>
+                <a routerLink="/dashboard">
+                    <span>Automation</span>
+                </a>
+                <span class="example-spacer"></span>
+
+                <button type="button" mat-icon-button class="example-icon atdrawer" (click)="drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <div *ngIf="userdata == null" class="menu">
+                    <a routerLink="login" class="m-2">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Login
+                            <!-- <mat-icon>login</mat-icon> -->
+                        </button>
+                    </a>
+                    <a routerLink="signup">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Signup
+                        </button>
+                    </a>
+                </div>
+                <div *ngIf="userdata" class="menu">
+
+                    <a routerLink="dashboard" class="m-2">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Dashboard
+                        </button>
+                    </a>
+                    <a routerLink="add-courses">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Add Courses
+                        </button>
+                    </a>
+                    <a (click)="logout()" class="m-2">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Logout
+                            <!-- <mat-icon>login</mat-icon> -->
+                        </button>
+                    </a>
+                </div>
+            </mat-toolbar>
+        </p>
+        <div style="margin-top: 80px; width: 100%;">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</mat-drawer-container>
+
+
 
 <!-- <app-login></app-login> -->
 <!-- <br><br><br><br> -->
