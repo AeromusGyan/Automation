@@ -110,14 +110,13 @@ export class DashboardComponent implements OnInit {
   }
 
   timeShort(time: any) {
-    const minutes = time.slice(3, 5);
-    if (time >= '01' && time <= '12') {
-      return time + ' AM';
-    }
-    else {
-      const short = parseFloat(time) - 12;
-      return short + ':' + minutes + ' PM';
-    }
+    var hours = parseInt(time.substr(0, 2));
+    var minutes = time.substr(3, 2);
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    var formattedTime = hours + ':' + minutes + ' ' + ampm;
+    return formattedTime;
   }
 
   exportToExcel() {
@@ -126,14 +125,14 @@ export class DashboardComponent implements OnInit {
 
 
   onEdit(index: any) {
-    let dialogRef = this.dialog.open(UpdateComponent,{
+    let dialogRef = this.dialog.open(UpdateComponent, {
       data: this.allCourses[index],
       // height: '400px',
       width: '500px',
     });
     dialogRef.afterClosed().subscribe({
-      next:(val)=>{
-        if(val){
+      next: (val) => {
+        if (val) {
           this.getAllCourses();
         }
       }

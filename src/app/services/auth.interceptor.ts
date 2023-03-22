@@ -3,8 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { LoginService } from "./login.service";
 
-
-
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{
 

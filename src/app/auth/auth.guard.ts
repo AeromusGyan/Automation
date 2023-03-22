@@ -10,7 +10,6 @@ export class AuthGuard implements CanActivate {
   constructor(
     private login:LoginService, 
     private router:Router,
-    @Inject(PLATFORM_ID) private platformId: any
     ){}
   canActivate(
     route: ActivatedRouteSnapshot,

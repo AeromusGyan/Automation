@@ -22,9 +22,7 @@ export class LoginService {
 
   loginUser(token:any){
     localStorage.setItem("token",token);
-    // var jdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss','en');
     var jdate = new Date();
-    // var jdate = new Date();
     localStorage.setItem("jdate",jdate.toString());
   }
 
@@ -35,6 +33,7 @@ export class LoginService {
   }
 
   isLoggedIn(){
+    this.checkTokenExpiration();
     let tokenStr = localStorage.getItem("token");
     if(tokenStr == undefined ||  tokenStr == '' || tokenStr == null)
     {
@@ -63,12 +62,11 @@ export class LoginService {
       console.log("session expired");
       this.logout();
       this._snackBar.open('Session is expired please login again !!', 'Close', {
-        duration: 2000,
+        duration: 5000,
         verticalPosition: 'top',
         horizontalPosition: 'center',
       });
     }
-    
   }
   // get user
   getToken()
