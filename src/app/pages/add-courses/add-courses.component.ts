@@ -27,10 +27,8 @@ export class AddCoursesComponent implements OnInit{
   }
 
   userdata!:any;
-
-  endTime='';
-  
-
+  endTime='';  
+  allCourses:any[] = [];
   // courses:Courses={
   //   cId: 0,
   //   course_name: '',
@@ -87,7 +85,6 @@ export class AddCoursesComponent implements OnInit{
       }
     )
   }
-  allCourses:any[] = [];
 
   getAllCourses(){
     this._courses.getAllCourses().subscribe(
@@ -159,6 +156,7 @@ export class AddCoursesComponent implements OnInit{
     else{
       this.courses.value.no_of_slots = '60';
     }
+    
     if (this.courses.value.start_time == '' || this.courses.value.start_time == null || this.courses.value.end_time == '' || this.courses.value.end_time == null) {
       this._snackBar.open('Contact Session Timing is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,
@@ -167,7 +165,18 @@ export class AddCoursesComponent implements OnInit{
       });
     }
     else{
-      this.courses.value.contact_session_timing = this.courses.value.start_time + '-' + this.courses.value.end_time;
+      const time = new Date(`01/01/2022 ${this.courses.value.start_time}`);
+      const hour = time.getHours();
+      if (hour >= 21 || hour < 6) {
+        this._snackBar.open('Please choose relevant time for course !!', 'Close', {
+          duration: this.durationInSeconds * 1000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      }
+      else{
+        this.courses.value.contact_session_timing = this.courses.value.start_time + '-' + this.courses.value.end_time;
+      }
     }
     if (this.courses.value.educator?.id == undefined || this.courses.value.educator?.id == null) {
       this._snackBar.open('Instructor is required !!', 'Close', {
@@ -219,8 +228,6 @@ export class AddCoursesComponent implements OnInit{
       });
     }
     else {
-      // const month = this.courses.value.start_date;
-      // this.courses.value.month = month.slice(3,7);
     // alert(JSON.stringify(this.courses.value));
     // return
     if (this.isExist == false) {
@@ -231,7 +238,6 @@ export class AddCoursesComponent implements OnInit{
       });
       setTimeout(() => {
         
-      // this.courses.reset();
         this._snackBar.open('Please choose another educator or Course or Date or Time!!', 'Close', {
           duration: this.durationInSeconds * 2000,
           verticalPosition: 'bottom',
@@ -291,7 +297,7 @@ export class AddCoursesComponent implements OnInit{
       const endDate = new Date(startDate);
       endDate.setDate(endDate.getDate() + day);
       this.courses.get('end_date')!.setValue(endDate.toISOString().substring(0, 10));  
-      console.log(endDate.toISOString().substring(0, 10));
+      // console.log(endDate.toISOString().substring(0, 10));
       
       this.courses.get('month')!.setValue(monthNames[endDate.getMonth()] + '-' + endDate.getFullYear());
     }

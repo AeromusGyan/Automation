@@ -1,66 +1,63 @@
-
 .example-spacer {
     flex: 1 1 auto;
-  }
-
-a{
-  text-decoration: none;
-  color: #fff;
 }
-  p{
-    margin: 0;
-  }
 
-  ::ng-deep .mat-toolbar{
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+p {
+    margin: 0;
+}
+
+::ng-deep .mat-toolbar {
     z-index: 998;
     position: fixed
-  }
-.favorite-icon{
-  color: #fff;
+}
+
+.favorite-icon {
+    color: #fff;
 }
 
 
 // 
 .example-container {
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .example-sidenav-content {
-  display: flex;
-  height: 100%;
-  // align-items: center;
-  // justify-content: center;
+    display: flex;
+    height: 100%;
 }
 
 .example-sidenav {
     background-color: #3f51b5;
     overflow: hidden;
-  padding: 10px;
+    padding: 10px;
 }
 
-.example-sidenav .row div a button{
+.example-sidenav .row div a button {
     width: 100%;
 }
-.atdrawer{
+
+.atdrawer {
     display: none;
 }
-.atclose{
+
+.atclose {
     float: right;
     color: #fff;
-}
-@media screen and (max-width: 600px) {
-    .drawer {
-      background-color: olive;
-    }
 }
 
 @media screen and (max-width: 900px) {
     .atdrawer {
-      display: block;
+        display: block;
     }
-    .menu{
+
+    .menu {
         display: none;
     }
 }

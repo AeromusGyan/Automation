@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { CoursesService } from './services/courses.service';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -6,17 +9,17 @@ import { LoginService } from './services/login.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent{
   title = 'Automation';
   
   userdata!:any;
-  logout(){
-    this.api.logout();
-    window.location.href = "/login"
-  }
-  constructor(private api:LoginService){
-    // console.log(this.userdata);
-    
+
+  singleCourse: any = {
+    educator: {}
+  };
+  constructor(
+    private api:LoginService,
+    ){
     this.userdata = this.api.getUser();
     if(navigator.onLine) {
       console.log("You are Online")
@@ -24,5 +27,9 @@ export class AppComponent {
      else {
       alert("You are Offline")
      }
+  }
+  logout(){
+    this.api.logout();
+    window.location.href = "/login"
   }
 }

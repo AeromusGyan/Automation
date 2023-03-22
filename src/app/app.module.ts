@@ -16,6 +16,7 @@ import { authInterceptorProviders } from './services/auth.interceptor';
 import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
 import { CoursesSortPipe } from './pipes/courses-sort.pipe';
 import { DatePipe } from '@angular/common';
+import { UpdateComponent } from './pages/dashboard/update/update.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DatePipe } from '@angular/common';
     SignupComponent,
     DashboardComponent,
     AddCoursesComponent,
-    CoursesSortPipe,    
+    CoursesSortPipe,
+    UpdateComponent,    
   ],
   imports: [
     BrowserModule,

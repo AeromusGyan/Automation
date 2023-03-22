@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>Update {{singleCourse.course_name}}</h2>
+<mat-dialog-content >
+    <form>
+        <div class="col-md-12">
+          <mat-form-field class="w100">
+            <mat-label>Educator</mat-label>
+            <input type="text" [(ngModel)]="singleCourse.educator.educator_name" disabled="true"
+              [ngModelOptions]="{standalone: true}" matInput placeholder="Enter here">
+            <mat-error>Slots is required</mat-error>
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-md-12">
+          <mat-form-field class="w100">
+            <mat-label>Enter Course Start Date</mat-label>
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="singleCourse.start_date" disabled="true"
+              [ngModelOptions]="{standalone: true}">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error>Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="w100">
+            <mat-label>Enter Course End Date</mat-label>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="singleCourse.end_date" disabled="true"
+              [ngModelOptions]="{standalone: true}">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error>Date is required</mat-error>
+          </mat-form-field>
+        </div> -->
+        <div class="col-md-12">
+          <mat-form-field class="w100">
+            <mat-label>Slots to be Opened</mat-label>
+            <input type="text" [(ngModel)]="singleCourse.no_of_slots" [ngModelOptions]="{standalone: true}" matInput
+              placeholder="Enter here">
+            <mat-error>Slots is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <div class="w100 time">
+            <mat-label>Contact Session Timing</mat-label> <br>
+            <div class="inline"><mat-label>from:</mat-label>
+              <input type="time" [(ngModel)]="singleCourse.start_time" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="inline"><mat-label>to:</mat-label>
+              <input type="time" [(ngModel)]="singleCourse.end_time" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+        </div>
+        
+      </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <p class="text-success px-2">{{updateMessage}}</p>
+  <button mat-raised-button type="button" [mat-dialog-close]="false">Close</button>
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="onUpdate()">Save changes</button>
+</mat-dialog-actions>

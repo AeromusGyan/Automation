@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,7 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,
+    private _snackBar: MatSnackBar, ) { }
 
   private baseUrl:string = environment.baseUrl;
 
@@ -23,7 +25,7 @@ export class LoginService {
     // var jdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss','en');
     var jdate = new Date();
     // var jdate = new Date();
-    localStorage.setItem("jdate",jdate.toUTCString());
+    localStorage.setItem("jdate",jdate.toString());
   }
 
   // get Current user details
@@ -49,13 +51,23 @@ export class LoginService {
     localStorage.removeItem("user");
     return true;
   }
+  
   checkTokenExpiration(){
     let jdateStr = localStorage.getItem("jdate")!;
-
-    const endDate = new Date(jdateStr);
-    let fdate = formatDate(new Date(), 'dd-MM-yyyy, hh:mm:ss', 'en');
-    // endDate.setDate(endDate.getHours() + 10);
-    console.log(endDate.getUTCHours() + 10);
+    const lastLogin = new Date(jdateStr);
+    const newTime = new Date(lastLogin.getTime() + (10 * 60 * 60 * 1000));
+    const currentTime = new Date();
+    let expiredTime = newTime.getHours();
+    console.log(expiredTime, currentTime.getHours());
+    if (expiredTime === currentTime.getHours())  {
+      console.log("session expired");
+      this.logout();
+      this._snackBar.open('Session is expired please login again !!', 'Close', {
+        duration: 2000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      });
+    }
     
   }
   // get user

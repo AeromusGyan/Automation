@@ -1,10 +1,13 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Courses } from 'src/app/models/courses.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { ExcelService } from 'src/app/services/excel.service';
+import { UpdateComponent } from './update/update.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +16,12 @@ import { ExcelService } from 'src/app/services/excel.service';
 })
 
 export class DashboardComponent implements OnInit {
+  @Output() registerEvent = new EventEmitter<any>();
   constructor(
     private _courses: CoursesService,
     private _snackBar: MatSnackBar,
     private excel: ExcelService,
-    private datePipe: DatePipe
+    public dialog: MatDialog
   ) { }
   sortoption: string = '';
   allCourses: Courses[] = [];
@@ -107,8 +111,6 @@ export class DashboardComponent implements OnInit {
 
   timeShort(time: any) {
     const minutes = time.slice(3, 5);
-    // console.log();
-
     if (time >= '01' && time <= '12') {
       return time + ' AM';
     }
@@ -121,61 +123,29 @@ export class DashboardComponent implements OnInit {
   exportToExcel() {
     this.excel.exportAsExcelFile('Infosys Automation System', '', this.displayedColumns, this.dataSource, 'Infosys Automation System', 'Sheet1');
   }
-  singleCourse: any = {
-    educator: {
 
-    }
-  };
 
   onEdit(index: any) {
-    // localStorage.setItem('data', JSON.stringify(this.allCourses[index]));
-    this.singleCourse = this.allCourses[index];
+    let dialogRef = this.dialog.open(UpdateComponent,{
+      data: this.allCourses[index],
+      // height: '400px',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe({
+      next:(val)=>{
+        if(val){
+          this.getAllCourses();
+        }
+      }
+    })
   }
 
-  onUpdate() {
-    // alert(JSON.stringify(this.singleCourse));
-
-    if (this.singleCourse.start_time == '' || this.singleCourse.start_time == null || this.singleCourse.end_time == '' || this.singleCourse.end_time == null) {
-      this._snackBar.open('Contact Session Timing is required !!', 'Close', {
-        duration: this.durationInSeconds * 1000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      });
-    }
-    else if (this.singleCourse.no_of_slots == '' || this.singleCourse.no_of_slots == null) {
-      this._snackBar.open('Slots to be opened is required !!', 'Close', {
-        duration: this.durationInSeconds * 1000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      });
-    }
-    else {
-      this.singleCourse.contact_session_timing = this.singleCourse.start_time + '-' + this.singleCourse.end_time;
-      this.updateCourses();
-    }
-  }
-  durationInSeconds = 2;
-  updateMessage: string = "";
-
-  updateCourses() {
-    this._courses.addCourses(this.singleCourse).subscribe(
-      (data: any) => {
-        this.updateMessage = "Course is successfully updated.";
-        setTimeout(() => {
-          this.updateMessage = "";
-        }, 3000);
-
-        // this._snackBar.open('Successfully Updated !!', 'Close', {
-        //   duration: this.durationInSeconds * 1000,
-        //   verticalPosition: 'bottom',
-        // });
-      },
-      (error) => {
-        //error
-        this._snackBar.open('Something went wrong !!', 'Close', {
-          duration: this.durationInSeconds * 1000,
-          verticalPosition: 'bottom',
-        });
-      })
+  pageEvent!: PageEvent;
+  pageSize = 5;
+  pageIndex = 0;
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
   }
 }
