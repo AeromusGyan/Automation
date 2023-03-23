@@ -66,4 +66,36 @@ export class UpdateComponent {
         });
       })
   }
+
+  // calculateEndTime() {
+  //   const selectedCourse: any = this.courseDetails.find(course => course.name === this.singleCourse.get('course_name')!.value);
+  //   const selectedStartTime = this.singleCourse.get('start_time')!.value;
+
+  //   const durationInHours = selectedCourse.duration;
+  //   const [startHour, startMinute] = selectedStartTime!.split(':');
+
+  //   let endHour = parseInt(startHour) + Math.floor(durationInHours);
+  //   let endMinute = parseInt(startMinute) + (durationInHours % 1) * 60;
+  //   if (endMinute > 59) {
+  //     endHour += Math.floor(endMinute / 60);
+  //     endMinute = endMinute % 60;
+  //   }
+  //   const endTime = `${endHour.toString().padStart(2, '0')}:${endMinute.toString().padStart(2, '0')}`;
+  //   this.singleCourse.patchValue({ end_time: endTime });
+  // }
+
+  courseDetails: any[] = [
+    { name: 'Agility and Scrum', day: 1, duration: 2, level: 1 },
+    { name: 'Introduction to DevOps', day: 1, duration: 2, level: 1 },
+    { name: 'Agility and Kanban', day: 1, duration: 2, level: 1 },
+    { name: 'Agile Scrum in Practice', day: 3, duration: 3.5, level: 2 },
+    { name: 'Kanban in Practice', day: 3, duration: 3.5, level: 2 },
+    { name: 'ALM with Jira Agile', day: 1, duration: 3.5, level: 2 },
+    { name: 'Introduction to Scaled Agile Framework', day: 1, duration: 4, level: 3 },
+    { name: 'DevOps CICD Dotnet', day: 4, duration: 3.5, level: 3 },
+    { name: 'SCM using GIT', day: 1, duration: 3.5, level: 2 },
+    { name: 'DevOps CI/CICD', day: 5, duration: 4, level: 3 },
+    { name: 'DevOps using Ansible', day: 3, duration: 4, level: 3 }
+  ]
+  
 }
