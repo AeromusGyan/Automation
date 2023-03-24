@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" position="end" mode="over">     
+    <mat-drawer #drawer class="example-sidenav" position="end" mode="over">
         <div class="row">
             <div class="col-md-12">
                 <button type="button" mat-icon-button class="example-icon atclose" (click)="drawer.toggle()">
@@ -7,11 +7,11 @@
                 </button>
             </div>
             <div *ngIf="userdata == null" class="col-md-12">
-               <div class="col-md-12 mt-2">
-                <a routerLink="login">
-                    <button mat-raised-button>Login</button>
-                </a>
-               </div>
+                <div class="col-md-12 mt-2">
+                    <a routerLink="login">
+                        <button mat-raised-button>Login</button>
+                    </a>
+                </div>
                 <div class="col-md-12 mt-2">
                     <a routerLink="signup">
                         <button mat-raised-button class=" ">Signup</button>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        
+
     </mat-drawer>
 
     <div class="example-sidenav-content">
@@ -46,7 +46,7 @@
                     <mat-icon>calendar_month</mat-icon>
                 </button>
                 <a routerLink="/dashboard">
-                    <span>Automation</span>
+                    <span>Schedulo</span>
                 </a>
                 <span class="example-spacer"></span>
 
@@ -67,15 +67,22 @@
                     </a>
                 </div>
                 <div *ngIf="userdata" class="menu">
-
                     <a routerLink="dashboard" class="m-2">
-                        <button mat-raised-button class="example-icon favorite-icon">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Dashboard</mat-label>
+                            <mat-select>
+                                <mat-option>Educator</mat-option>
+                                <mat-option value="CR">Scheduling Team</mat-option>
+                                <mat-option value="VCR">IBPO Team</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <button mat-raised-button class="example-icon favorite-icon">
                             Dashboard
-                        </button>
+                        </button> -->
                     </a>
                     <a routerLink="add-courses">
                         <button mat-raised-button class="example-icon favorite-icon">
-                            Add Courses
+                            Monthly Educator Preference
                         </button>
                     </a>
                     <a (click)="logout()" class="m-2">

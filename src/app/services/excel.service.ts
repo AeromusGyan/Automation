@@ -8,8 +8,8 @@ const EXCEL_EXTENSION = '.xlsx';
 @Injectable({
   providedIn: 'root'
 })
-export class ExcelService {
 
+export class ExcelService {
   constructor() { }
   
   public exportAsExcelFile(
