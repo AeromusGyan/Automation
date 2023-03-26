@@ -6,7 +6,7 @@
                     <mat-icon>close</mat-icon>
                 </button>
             </div>
-            <div *ngIf="userdata == null" class="col-md-12">
+            <div *ngIf="currentUser == null" class="col-md-12">
                 <div class="col-md-12 mt-2">
                     <a routerLink="login">
                         <button mat-raised-button>Login</button>
@@ -18,7 +18,7 @@
                     </a>
                 </div>
             </div>
-            <div *ngIf="userdata" class="col-md-12">
+            <div *ngIf="currentUser" class="col-md-12">
                 <div class="col-md-12 mt-2">
                     <a routerLink="dashboard">
                         <button mat-raised-button>Home</button>
@@ -53,7 +53,7 @@
                 <button type="button" mat-icon-button class="example-icon atdrawer" (click)="drawer.toggle()">
                     <mat-icon>menu</mat-icon>
                 </button>
-                <div *ngIf="userdata == null" class="menu">
+                <div *ngIf="currentUser == null" class="menu">
                     <a routerLink="login" class="m-2">
                         <button mat-raised-button class="example-icon favorite-icon">
                             Login
@@ -66,23 +66,34 @@
                         </button>
                     </a>
                 </div>
-                <div *ngIf="userdata" class="menu">
-                    <a routerLink="dashboard" class="m-2">
-                        <mat-form-field appearance="fill">
+                <div *ngIf="currentUser" class="menu">
+                    <a  routerLink="dashboard" class="m-2">
+                        <!-- <mat-form-field appearance="fill">
                             <mat-label>Dashboard</mat-label>
                             <mat-select>
                                 <mat-option>Educator</mat-option>
                                 <mat-option value="CR">Scheduling Team</mat-option>
                                 <mat-option value="VCR">IBPO Team</mat-option>
                             </mat-select>
-                        </mat-form-field>
-                        <!-- <button mat-raised-button class="example-icon favorite-icon">
+                        </mat-form-field> -->
+                        <button mat-raised-button class="example-icon favorite-icon">
                             Dashboard
-                        </button> -->
+                        </button>
                     </a>
-                    <a routerLink="add-courses">
+                    
+                    <a class="m-2" *ngIf="currentUser.authorities[0].authority === 'EDUCATOR'" routerLink="add-courses">
                         <button mat-raised-button class="example-icon favorite-icon">
                             Monthly Educator Preference
+                        </button>
+                    </a>
+                    <a class="m-2" *ngIf="currentUser.authorities[0].authority === 'IBPO'" routerLink="upload">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Upload Updated Excel
+                        </button>
+                    </a>
+                    <a class="m-2" *ngIf="currentUser.authorities[0].authority === 'IBPO' || currentUser.authorities[0].authority === 'SCHEDULO'" routerLink="report">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Report
                         </button>
                     </a>
                     <a (click)="logout()" class="m-2">

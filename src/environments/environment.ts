@@ -5,9 +5,8 @@
 
 export const environment = {
   production: false,
-  // baseUrl : 'http://localhost:2023',
-  baseUrl : 'https://autoapi.sciaku.com',
-  imgUrl : 'https://sciaku.com/assets/images/'
+  baseUrl : 'http://localhost:2023',
+  // baseUrl : 'https://autoapi.sciaku.com',
 };
 
 /*

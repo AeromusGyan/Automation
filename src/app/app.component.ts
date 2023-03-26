@@ -11,16 +11,23 @@ import { LoginService } from './services/login.service';
 })
 export class AppComponent{
   title = 'Automation';
-  
-  userdata!:any;
+
+  currentUser:any={
+    id:0,
+    authorities:[{
+      authority:''
+    }]
+  };
 
   singleCourse: any = {
     educator: {}
   };
+
   constructor(
     private api:LoginService,
     ){
-    this.userdata = this.api.getUser();
+    this.currentUser = this.api.getUser();
+
     if(navigator.onLine) {
       console.log("You are Online")
      }
@@ -28,6 +35,7 @@ export class AppComponent{
       alert("You are Offline")
      }
   }
+  
   logout(){
     this.api.logout();
     window.location.href = "/login"

@@ -91,7 +91,7 @@
             <th>Venue</th>
             <th>Slots to be Opened</th>
             <th>Lex Link</th>
-            <th>Edit</th>
+            <th *ngIf="currentUser.authorities[0].authority === 'SCHEDULO'">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -111,7 +111,7 @@
             <td>{{getLocation(c.venue)}}</td>
             <td>{{c.no_of_slots}}</td>
             <td>{{c.registration_link}}</td>
-            <td><button mat-mini-fab color="primary" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            <td *ngIf="currentUser.authorities[0].authority === 'SCHEDULO'"><button mat-mini-fab color="primary" type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" (click)="onEdit(i)"><mat-icon>edit</mat-icon></button></td>
           </tr>
         </tbody>

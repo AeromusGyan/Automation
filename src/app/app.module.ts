@@ -17,6 +17,8 @@ import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
 import { CoursesSortPipe } from './pipes/courses-sort.pipe';
 import { DatePipe } from '@angular/common';
 import { UpdateComponent } from './pages/dashboard/update/update.component';
+import { UploadComponent } from './pages/upload/upload.component';
+import { ReportComponent } from './pages/report/report.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { UpdateComponent } from './pages/dashboard/update/update.component';
     DashboardComponent,
     AddCoursesComponent,
     CoursesSortPipe,
-    UpdateComponent,    
+    UpdateComponent,
+    UploadComponent,
+    ReportComponent,    
   ],
   imports: [
     BrowserModule,

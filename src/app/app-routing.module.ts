@@ -5,6 +5,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
+import { UploadComponent } from './pages/upload/upload.component';
+import { ReportComponent } from './pages/report/report.component';
 const routes: Routes = [
   // {path:'', redirectTo:'login'},
   {path:'', redirectTo:'/dashboard', pathMatch:'full'},
@@ -12,7 +14,9 @@ const routes: Routes = [
   {path:'signup', component:SignupComponent},
   {path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
   {path:'add-courses', component:AddCoursesComponent, canActivate:[AuthGuard]},
-
+  {path:'upload', component:UploadComponent, canActivate:[AuthGuard]},
+  {path:'report', component:ReportComponent, canActivate:[AuthGuard]},
+  {path:'**',redirectTo:'/dashboard', pathMatch:'full'}
 ];
 
 @NgModule({

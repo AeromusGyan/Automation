@@ -13,22 +13,31 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class AddCoursesComponent implements OnInit {
   educators!: any;
+  currentUser:any={
+    id:0,
+    authorities:[{
+      authority:''
+    }]
+  };
+
+  durationInSeconds = 2;
+  userdata!: any;
+  endTime = '';
+  allCourses: any[] = [];
   constructor(
     private api: LoginService,
     private _courses: CoursesService,
     private _snackBar: MatSnackBar,
   ) {
+    this.currentUser = this.api.getUser();
   }
 
-  durationInSeconds = 2;
   ngOnInit(): void {
     this.getAllEducators();
     this.getAllCourses();
+    console.log(this.currentUser);
+    
   }
-
-  userdata!: any;
-  endTime = '';
-  allCourses: any[] = [];
   // courses:Courses={
   //   cId: 0,
   //   course_name: '',
@@ -67,7 +76,7 @@ export class AddCoursesComponent implements OnInit {
     location: new FormControl('', [Validators.required]),
     course_type: new FormControl('', [Validators.required]),
     educator: new FormGroup({
-      id: new FormControl(null, [Validators.required]),
+      id: new FormControl(0, [Validators.required]),
     })
   })
 
@@ -138,6 +147,7 @@ export class AddCoursesComponent implements OnInit {
   }
 
   onSubmit() {
+    this.courses.get('educator.id')!.setValue(this.currentUser.id);
     this.onCheckCourseValidator();
     if (this.courses.value.course_type == "RBT") {
       if (this.courses.value.course_mode == "VCR") {

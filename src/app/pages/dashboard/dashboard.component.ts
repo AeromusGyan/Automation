@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Courses } from 'src/app/models/courses.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { ExcelService } from 'src/app/services/excel.service';
+import { LoginService } from 'src/app/services/login.service';
 import { UpdateComponent } from './update/update.component';
 
 @Component({
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
     private _courses: CoursesService,
     private _snackBar: MatSnackBar,
     private excel: ExcelService,
+    private api:LoginService,
     public dialog: MatDialog
   ) { }
   sortoption: string = '';
@@ -33,7 +35,14 @@ export class DashboardComponent implements OnInit {
   end = '';
   contact = '';
   displayedColumns!: any[];
+  currentUser:any={
+    id:0,
+    authorities:[{
+      authority:''
+    }]
+  };
   ngOnInit() {
+    this.currentUser = this.api.getUser();
     this.getAllCourses();
     this.displayedColumns = ['Offerings Id', 'Type', 'Course Name', 'CR/VCR', 'Location', 'Educator', 'Start Date', 'End Date', 'Start Time', 'End Time', 'Contact Session Timing', 'Venue', 'Slots', 'Registration Link'];
   }

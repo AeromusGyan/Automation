@@ -45,7 +45,7 @@ export class UpdateComponent {
   updateMessage: string = "";
 
   updateCourses() {
-    this._courses.addCourses(this.singleCourse).subscribe(
+    this._courses.updateCourses(this.singleCourse).subscribe(
       (data: any) => {
         this.updateMessage = "Course is successfully updated.";
         setTimeout(() => {
