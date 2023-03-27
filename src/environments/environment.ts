@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  baseUrl : 'http://localhost:2023',
-  // baseUrl : 'https://autoapi.sciaku.com',
+  // baseUrl : 'http://localhost:2023',
+  baseUrl : 'https://autoapi.sciaku.com',
 };
 
 /*

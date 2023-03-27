@@ -12,6 +12,26 @@ export class UpdateComponent {
   singleCourse: any = {
     educator: {}
   };
+
+  updateData:any = {
+    cId: 5,
+    contact_session_timing: "19:12-21:12",
+    course_mode: "CR",
+    course_name: "Agility and Scrum",
+    course_type: "RBT",
+    educator: {id: 1},
+    end_date: "2023-03-03T18:30:00.000Z",
+    end_time: "21:12",
+    location: "Bangalore",
+    month: "",
+    no_of_slots: "60",
+    registration_link: null,
+    start_date: "2023-03-02T18:30:00.000Z",
+    start_time: "19:12",
+    status: true,
+    venue: "Bangalore "
+  }
+
   constructor(
     private _courses: CoursesService,
     private _snackBar: MatSnackBar,
@@ -21,7 +41,25 @@ export class UpdateComponent {
       this.singleCourse = data;
     }
   onUpdate() {
-    // alert(JSON.stringify(this.singleCourse));
+    this.updateData.cId = this.singleCourse.cId;
+    this.updateData.contact_session_timing = this.singleCourse.contact_session_timing;
+    this.updateData.course_mode = this.singleCourse.course_mode;
+    this.updateData.course_name = this.singleCourse.course_name;
+    this.updateData.course_type = this.singleCourse.course_type;
+    this.updateData.educator.id = this.singleCourse.educator.id;
+    this.updateData.end_date = this.singleCourse.end_date;
+    this.updateData.end_time = this.singleCourse.end_time;
+    this.updateData.location = this.singleCourse.location;
+    this.updateData.month = this.singleCourse.month;
+    this.updateData.no_of_slots = this.singleCourse.no_of_slots;
+    this.updateData.registration_link = this.singleCourse.registration_link;
+    this.updateData.start_date = this.singleCourse.start_date;
+    this.updateData.start_time = this.singleCourse.start_time;
+    this.updateData.status = this.singleCourse.status;
+    this.updateData.venue = this.singleCourse.venue;
+
+    // console.log((this.updateData));
+
     if (this.singleCourse.start_time == '' || this.singleCourse.start_time == null || this.singleCourse.end_time == '' || this.singleCourse.end_time == null) {
       this._snackBar.open('Contact Session Timing is required !!', 'Close', {
         duration: this.durationInSeconds * 1000,

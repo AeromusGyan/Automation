@@ -132,13 +132,13 @@ export class DashboardComponent implements OnInit {
     this.excel.exportAsExcelFile('Infosys Automation System', '', this.displayedColumns, this.dataSource, 'Infosys Automation System', 'Sheet1');
   }
 
-
   onEdit(index: any) {
     let dialogRef = this.dialog.open(UpdateComponent, {
       data: this.allCourses[index],
       // height: '400px',
       width: '500px',
     });
+
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {

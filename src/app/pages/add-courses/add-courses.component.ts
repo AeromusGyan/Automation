@@ -35,8 +35,6 @@ export class AddCoursesComponent implements OnInit {
   ngOnInit(): void {
     this.getAllEducators();
     this.getAllCourses();
-    console.log(this.currentUser);
-    
   }
   // courses:Courses={
   //   cId: 0,
