@@ -22,4 +22,8 @@ export class CoursesService {
   getAllCourses(){
     return this.http.get<Courses[]>(`${this.baseUrl}/courses/`);
   }
+
+  updateAllCourses(courseData:any){
+    return this.http.put(`${this.baseUrl}/courses/updateAll`, courseData);
+  }
 }

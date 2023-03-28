@@ -1,8 +1,17 @@
-<h2>Upload Updated Excel File</h2>
 
+<div *ngIf="isUploaded" class="alert alert-success" role="alert">
+  <strong>Well done!</strong> File is successfully uploaded.
+</div>
+<div *ngIf="isNotUploaded" class="alert alert-danger" role="alert">
+  <strong>Oh snap!</strong> Change a few things up and try submitting again.
+</div>
+
+<h2>Upload Updated Excel File</h2>
+<div class="container-fluid">
+  <div class="row ">
 <!-- Upload  -->
 <form id="file-upload-form" class="uploader">
-  <input id="file-upload" type="file" name="fileUpload" accept=".xls,.xlsx*" />
+  <input (change)="selectExcel($event)" id="file-upload" type="file" name="fileUpload" accept=".xls,.xlsx*" />
 
   <label for="file-upload" id="file-drag">
     <img id="file-image" src="#" alt="Preview" class="hidden">
@@ -20,3 +29,66 @@
     </div>
   </label>
 </form>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="file">
+  <div class="row ">
+    <button id="file-upload-btn" mat-raised-button color="primary" class="btn btn-primary m-2" (click)="upload()">Final Upload</button>
+    <div class="ctable">
+      <table id="exceltable" class="table table-responsive table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Course Name</th>
+            <th>Type</th>
+            <th>CR/VCR</th>
+            <th>Location</th>
+            <th>Educator</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Month</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Contact Session Timing</th>
+            <th>Venue</th>
+            <th>Slots to be Opened</th>
+            <th>Lex Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of excelData ; index as i">
+            <td>{{c.Offering_Id}}</td>
+            <td>{{c.Course_Name}}</td>
+            <td>{{c.Type}}</td>
+            <td>{{c.CR_VCR}}</td>
+            <td>{{c.Location}}</td>
+            <td>{{c.Educator}}</td>
+            <td>{{c.Start_Date}}</td>
+            <td>{{c.End_Date}}</td>
+            <td>{{c.Month}}</td>
+            <td>{{c.Start_Time}}</td>
+            <td>{{c.End_Time}}</td>
+            <td>{{c.Contact_Session_Timing}}</td>
+            <td>{{c.Venue}}</td>
+            <td>{{c.Slots}}</td>
+            <td>{{c.Registration_Link}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- <mat-paginator 
+              #paginator
+              class="demo-paginator"
+              (page)="handlePageEvent($event)"
+              [length]="allCourses.length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="[5,10,25,100]" 
+              [showFirstLastButtons]="true"
+              aria-label="Select page of courses"></mat-paginator> -->
+    </div>
+  </div>
+</div>
+<!-- <pre>
+  {{excelData | json}}
+</pre> -->

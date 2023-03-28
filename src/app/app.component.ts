@@ -27,7 +27,6 @@ export class AppComponent{
     private api:LoginService,
     ){
     this.currentUser = this.api.getUser();
-
     if(navigator.onLine) {
       console.log("You are Online")
      }

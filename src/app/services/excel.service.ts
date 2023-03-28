@@ -33,26 +33,26 @@ export class ExcelService {
     const worksheet = workbook.addWorksheet(sheetName);
 
     // Add Header Row
-    worksheet.addRow([]);
-    worksheet.mergeCells('A1:' + this.numToAlpha(header.length - 1) + '1');
-    worksheet.getCell('A1').value = reportHeading;
-    worksheet.getCell('A1').alignment = { horizontal: 'center' };
-    worksheet.getCell('A1').font = { size: 15, bold: true };
-    if (reportSubHeading !== '') {
-      worksheet.addRow([]);
-      worksheet.mergeCells('A1:' + this.numToAlpha(header.length - 1) + '2');
-      worksheet.getCell('A1').value = reportSubHeading;
-      worksheet.getCell('A1').alignment = { horizontal: 'center' };
-      worksheet.getCell('A1').font = { size: 12, bold: false };
-    }
-    worksheet.addRow([]);
+    // worksheet.addRow([]);
+    // worksheet.mergeCells('A1:' + this.numToAlpha(header.length - 1) + '1');
+    // worksheet.getCell('A1').value = reportHeading;
+    // worksheet.getCell('A1').alignment = { horizontal: 'center' };
+    // worksheet.getCell('A1').font = { size: 15, bold: true };
+    // if (reportSubHeading !== '') {
+    //   worksheet.addRow([]);
+    //   worksheet.mergeCells('A1:' + this.numToAlpha(header.length - 1) + '2');
+    //   worksheet.getCell('A1').value = reportSubHeading;
+    //   worksheet.getCell('A1').alignment = { horizontal: 'center' };
+    //   worksheet.getCell('A1').font = { size: 12, bold: false };
+    // }
+    // worksheet.addRow([]);
 
     // Add Header Row
     const headerRow = worksheet.addRow(header);
-    worksheet.autoFilter = {
-      from:'B3',
-      to: 'J3'
-    }
+    // worksheet.autoFilter = {
+    //   from:'B3',
+    //   to: 'J3'
+    // }
     // Cell Style : Fill and Brother
     headerRow.eachCell((cell, index) => {
       cell.fill = {

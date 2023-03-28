@@ -12,8 +12,8 @@
           <mat-label>Educators</mat-label>
           <mat-select [(value)]="educator" [(ngModel)]="sortoption">
             <mat-option>None</mat-option>
-            <mat-option *ngFor="let c of allCourses"
-              [value]="c.educator.educator_name">{{c.educator.educator_name}}</mat-option>
+            <mat-option *ngFor="let c of educators"
+              [value]="c.educator_name">{{c.educator_name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -22,8 +22,8 @@
           <mat-label>Courses</mat-label>
           <mat-select [(value)]="courses" [(ngModel)]="sortoption">
             <mat-option>None</mat-option>
-            <mat-option *ngFor="let course of allCourses"
-              [value]="course.course_name">{{course.course_name}}</mat-option>
+            <mat-option *ngFor="let course of courseDetails"
+              [value]="course.name">{{course.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -90,7 +90,7 @@
             <th>Contact Session Timing</th>
             <th>Venue</th>
             <th>Slots to be Opened</th>
-            <th>Lex Link</th>
+            <th>Registration Link</th>
             <th *ngIf="currentUser.authorities[0].authority === 'SCHEDULO' || currentUser.authorities[0].authority === 'EDUCATOR'">Edit</th>
           </tr>
         </thead>
@@ -110,9 +110,10 @@
             <td>{{timeConverter(c.contact_session_timing)}}</td>
             <td>{{getLocation(c.venue)}}</td>
             <td>{{c.no_of_slots}}</td>
-            <td>{{c.registration_link}}</td>
-            <td *ngIf="currentUser.id === c.educator.id"><button mat-mini-fab color="primary" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal" (click)="onEdit(i)"><mat-icon>edit</mat-icon></button></td>
+            <td><a href="{{c.registration_link}}" target="_blank">{{c.registration_link}}</a></td>
+            <td *ngIf="currentUser.id === c.educator.id || currentUser.authorities[0].authority === 'SCHEDULO' && c.registration_link == ''">
+              <button mat-mini-fab color="primary" type="button"(click)="onEdit(i)"><mat-icon>edit</mat-icon></button>
+              </td>
           </tr>
         </tbody>
       </table>

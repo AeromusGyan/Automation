@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     private api:LoginService,
     public dialog: MatDialog
   ) { }
+
   sortoption: string = '';
   allCourses: Courses[] = [];
   dataSource: any[] = [];
@@ -41,25 +42,47 @@ export class DashboardComponent implements OnInit {
       authority:''
     }]
   };
+  educators!: any;
+  durationInSeconds = 2;
+  
   ngOnInit() {
     this.currentUser = this.api.getUser();
+    this.getAllEducators();
     this.getAllCourses();
-    this.displayedColumns = ['Offerings Id', 'Type', 'Course Name', 'CR/VCR', 'Location', 'Educator', 'Start Date', 'End Date', 'Start Time', 'End Time', 'Contact Session Timing', 'Venue', 'Slots', 'Registration Link'];
+    this.displayedColumns = ['Offering_Id', 'Type', 'Course_Id', 'Course_Name', 'CR_VCR', 'Location', 'Educator', 'Start_Date', 'End_Date', 'Month', 'Start_Time', 'End_Time', 'Contact_Session_Timing', 'Venue', 'Slots', 'Registration_Link'];
   }
+
+  getAllEducators() {
+    this.api.getActiveEducator().subscribe(
+      (res) => {
+        this.educators = res;
+      },
+      (err: HttpErrorResponse) => {
+        this._snackBar.open('Server Error!!', 'Close', {
+          duration: this.durationInSeconds * 1000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      }
+    )
+  }
+
   getAllCourses() {
     this._courses.getAllCourses().subscribe(
       (res) => {
         this.allCourses = res;
         this.allCourses.forEach(element => {
           var courseExcel = {
-            offerings_id: '',
+            offering_id: '',
             course_type: '',
+            course_id: 0,
             course_name: '',
             course_mode: '',
             location: '',
             educator: '',
             start_date: '',
             end_date: '',
+            month:'',
             start_time: '',
             end_time: '',
             contact_session_timing: '',
@@ -67,14 +90,16 @@ export class DashboardComponent implements OnInit {
             no_of_slots: 0,
             registration_link: ''
           };
-          courseExcel.offerings_id = '';
+          courseExcel.offering_id = '';
           courseExcel.course_type = element.course_type;
+          courseExcel.course_id = element.cId;
           courseExcel.course_name = element.course_name;
           courseExcel.course_mode = element.course_mode;
           courseExcel.location = this.getLocation(element.location);
           courseExcel.educator = element.educator.educator_name;
           courseExcel.start_date = formatDate(element.start_date, 'dd-MMM-y', 'en');
           courseExcel.end_date = formatDate(element.end_date, 'dd-MMM-y', 'en');
+          courseExcel.month = element.month;
           courseExcel.start_time = this.timeShort(element.start_time);
           courseExcel.end_time = this.timeShort(element.end_time);
           courseExcel.contact_session_timing = this.timeConverter(element.contact_session_timing);
@@ -156,4 +181,18 @@ export class DashboardComponent implements OnInit {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
   }
+
+  courseDetails: any[] = [
+    { name: 'Agility and Scrum', day: 1, duration: 2, level: 1 },
+    { name: 'Introduction to DevOps', day: 1, duration: 2, level: 1 },
+    { name: 'Agility and Kanban', day: 1, duration: 2, level: 1 },
+    { name: 'Agile Scrum in Practice', day: 3, duration: 3.5, level: 2 },
+    { name: 'Kanban in Practice', day: 3, duration: 3.5, level: 2 },
+    { name: 'ALM with Jira Agile', day: 1, duration: 3.5, level: 2 },
+    { name: 'Introduction to Scaled Agile Framework', day: 1, duration: 4, level: 3 },
+    { name: 'DevOps CICD Dotnet', day: 4, duration: 3.5, level: 3 },
+    { name: 'SCM using GIT', day: 1, duration: 3.5, level: 2 },
+    { name: 'DevOps CI/CICD', day: 5, duration: 4, level: 3 },
+    { name: 'DevOps using Ansible', day: 3, duration: 4, level: 3 }
+  ]
 }
