@@ -1,1 +1,97 @@
-<p>report works!</p>
+
+<div class="bootstrap-wrapper">
+    <div class="container-fluid">
+        <mat-card  class="p-2 ">
+      <div class="row text-center">
+                <div class="col-md-2">
+                    <mat-form-field class="w100">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" name="start_date" [(ngModel)]="date.start" required="true">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="w100">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="picker2" name="end_date" [(ngModel)]="date.end" required="true">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <!-- {{date | json}} -->
+                <div class="col-md-4">
+                    <button [disabled]="date.start === '' || date.end === ''" mat-raised-button color="primary" class="w100 m-1" (click)="getDataStartEnd()">Apply</button>
+                    <button mat-raised-button color="warn" class="w100 m-1" (click)="getAllCourse()">Reset</button>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="w100" appearance="fill">
+                        <mat-label>Offering Type</mat-label>
+                        <mat-select>
+                            <mat-option value="RBT" (click)="getDataByType('RBT')">RBT</mat-option>
+                            <mat-option value="JIT" (click)="getDataByType('JIT')">JIT</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="w100" appearance="fill">
+                        <mat-label>Offering Mode</mat-label>
+                        <mat-select>
+                            <mat-option value="CR" (click)="getDataByMode('CR')">CR</mat-option>
+                            <mat-option value="VCR" (click)="getDataByMode('VCR')">VCR</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                </div>
+                <!-- <div class="col-md-2">
+                    <mat-form-field class="w100" appearance="fill">
+                        <mat-label>Location</mat-label>
+                        <mat-select>
+                            <mat-option value="Offshore">Offshore</mat-option>
+                            <mat-option value="On-site">On-site</mat-option>
+                            <mat-option value="DC wise">DC wise</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> -->
+      </div>
+    </mat-card>
+    </div>
+    <div class="container-fluid">
+        <mat-card>
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>Total Courses</th>
+                        <th>Offering Mode</th>
+                        <th>Offering Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="dateData.length == 0 || dateData == null">
+                        <td colspan="3" align="center"><mat-spinner></mat-spinner>
+                        <h3>No Data Found!!</h3>
+                        </td>
+                      </tr>
+                    <tr>
+                        <td><h1>{{dateData.length}}</h1></td>
+                        <!-- <td>VCR: {{vcrPercent.toFixed(2)}}% CR: {{crPercent.toFixed(2)}}%</td> -->
+                        <td>
+                            <div class="chart-container">
+                            <canvas id="modeChart"></canvas>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="chart-container">
+                        <canvas id="typeChart"></canvas>
+                    </div>
+                </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="chart-containers">
+                <canvas id="barChart"></canvas>
+            </div>
+        </mat-card>
+    </div>
+</div>

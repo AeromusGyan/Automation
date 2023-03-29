@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-12 mt-2">
                     <a routerLink="signup">
-                        <button mat-raised-button class=" ">Signup</button>
+                        <button mat-raised-button>Signup</button>
                     </a>
                 </div>
             </div>
@@ -25,8 +25,24 @@
                     </a>
                 </div>
                 <div class="col-md-12 mt-2">
-                    <a routerLink="add-courses">
-                        <button mat-raised-button>Add Courses</button>
+                <a class="m-2" *ngIf="currentUser.authorities[0].authority === 'EDUCATOR'" routerLink="add-courses">
+                    <button mat-raised-button class="example-icon favorite-icon">
+                        Monthly Educator Preference
+                    </button>
+                </a>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <a class="m-2" *ngIf="currentUser.authorities[0].authority === 'IBPO'" routerLink="upload">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Upload Updated Excel
+                        </button>
+                    </a>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <a class="m-2" *ngIf="currentUser.authorities[0].authority === 'IBPO' || currentUser.authorities[0].authority === 'SCHEDULO'" routerLink="report">
+                        <button mat-raised-button class="example-icon favorite-icon">
+                            Report
+                        </button>
                     </a>
                 </div>
                 <div class="col-md-12 mt-2">
@@ -57,7 +73,6 @@
                     <a routerLink="login" class="m-2">
                         <button mat-raised-button class="example-icon favorite-icon">
                             Login
-                            <!-- <mat-icon>login</mat-icon> -->
                         </button>
                     </a>
                     <a routerLink="signup">
@@ -68,14 +83,6 @@
                 </div>
                 <div *ngIf="currentUser" class="menu">
                     <a  routerLink="dashboard" class="m-2">
-                        <!-- <mat-form-field appearance="fill">
-                            <mat-label>Dashboard</mat-label>
-                            <mat-select>
-                                <mat-option>Educator</mat-option>
-                                <mat-option value="CR">Scheduling Team</mat-option>
-                                <mat-option value="VCR">IBPO Team</mat-option>
-                            </mat-select>
-                        </mat-form-field> -->
                         <button mat-raised-button class="example-icon favorite-icon">
                             Dashboard
                         </button>
@@ -99,7 +106,6 @@
                     <a (click)="logout()" class="m-2">
                         <button mat-raised-button class="example-icon favorite-icon">
                             Logout
-                            <!-- <mat-icon>login</mat-icon> -->
                         </button>
                     </a>
                 </div>
@@ -109,5 +115,4 @@
             <router-outlet></router-outlet>
         </div>
     </div>
-
 </mat-drawer-container>

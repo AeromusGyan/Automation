@@ -7,6 +7,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
 import { UploadComponent } from './pages/upload/upload.component';
 import { ReportComponent } from './pages/report/report.component';
+import { AdminGuard } from './auth/admin.guard';
+import { ScheduloGuard } from './auth/schedulo.guard';
 const routes: Routes = [
   // {path:'', redirectTo:'login'},
   {path:'', redirectTo:'/dashboard', pathMatch:'full'},
@@ -14,8 +16,8 @@ const routes: Routes = [
   {path:'signup', component:SignupComponent},
   {path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
   {path:'add-courses', component:AddCoursesComponent, canActivate:[AuthGuard]},
-  {path:'upload', component:UploadComponent, canActivate:[AuthGuard]},
-  {path:'report', component:ReportComponent, canActivate:[AuthGuard]},
+  {path:'upload', component:UploadComponent, canActivate:[AdminGuard]},
+  {path:'report', component:ReportComponent, canActivate:[ScheduloGuard]},
   {path:'**',redirectTo:'/dashboard', pathMatch:'full'}
 ];
 

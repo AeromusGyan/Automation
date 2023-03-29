@@ -29,12 +29,14 @@ export class DashboardComponent implements OnInit {
   sortoption: string = '';
   allCourses: Courses[] = [];
   dataSource: any[] = [];
-  educator = '';
+
+  // educator = '';
   courses = '';
   mode = '';
   start = '';
   end = '';
   contact = '';
+
   displayedColumns!: any[];
   currentUser:any={
     id:0,
@@ -42,14 +44,56 @@ export class DashboardComponent implements OnInit {
       authority:''
     }]
   };
-  educators!: any;
+  educators:any = {
+    authorities:[{
+      authority:''
+    }]
+  };
   durationInSeconds = 2;
-  
+  monthNames:any = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
   ngOnInit() {
     this.currentUser = this.api.getUser();
     this.getAllEducators();
     this.getAllCourses();
     this.displayedColumns = ['Offering_Id', 'Type', 'Course_Id', 'Course_Name', 'CR_VCR', 'Location', 'Educator', 'Start_Date', 'End_Date', 'Month', 'Start_Time', 'End_Time', 'Contact_Session_Timing', 'Venue', 'Slots', 'Registration_Link'];
+  }
+
+  getMonthlyData(month:any){
+    this._courses.getDataByType(0,0,month,0).subscribe(
+      (res:any)=>{
+        this.allCourses.length = 0;
+        this.allCourses = res;
+      },
+      (error:any)=>{
+        console.log(error);
+        
+      }
+    )
+  }
+  getDataByCName(cname:any){
+    this._courses.getDataByType(0,0,0,cname).subscribe(
+      (res: any) => {
+        this.allCourses.length = 0;
+        this.allCourses = res;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    )
+  }
+
+  getDataByType(mode:any){
+    this._courses.getDataByType(0,mode,0,0).subscribe(
+      (res: any) => {
+        this.allCourses.length = 0;
+        this.allCourses = res;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    )
   }
 
   getAllEducators() {
@@ -71,43 +115,7 @@ export class DashboardComponent implements OnInit {
     this._courses.getAllCourses().subscribe(
       (res) => {
         this.allCourses = res;
-        this.allCourses.forEach(element => {
-          var courseExcel = {
-            offering_id: '',
-            course_type: '',
-            course_id: 0,
-            course_name: '',
-            course_mode: '',
-            location: '',
-            educator: '',
-            start_date: '',
-            end_date: '',
-            month:'',
-            start_time: '',
-            end_time: '',
-            contact_session_timing: '',
-            venue: '',
-            no_of_slots: 0,
-            registration_link: ''
-          };
-          courseExcel.offering_id = '';
-          courseExcel.course_type = element.course_type;
-          courseExcel.course_id = element.cId;
-          courseExcel.course_name = element.course_name;
-          courseExcel.course_mode = element.course_mode;
-          courseExcel.location = this.getLocation(element.location);
-          courseExcel.educator = element.educator.educator_name;
-          courseExcel.start_date = formatDate(element.start_date, 'dd-MMM-y', 'en');
-          courseExcel.end_date = formatDate(element.end_date, 'dd-MMM-y', 'en');
-          courseExcel.month = element.month;
-          courseExcel.start_time = this.timeShort(element.start_time);
-          courseExcel.end_time = this.timeShort(element.end_time);
-          courseExcel.contact_session_timing = this.timeConverter(element.contact_session_timing);
-          courseExcel.venue = this.getLocation(element.venue);
-          courseExcel.no_of_slots = parseInt(element.no_of_slots);
-          courseExcel.registration_link = '';
-          this.dataSource.push(courseExcel);
-        });
+        
       },
       (err: HttpErrorResponse) => {
         this._snackBar.open('Server error !!', 'Close', {
@@ -154,6 +162,43 @@ export class DashboardComponent implements OnInit {
   }
 
   exportToExcel() {
+    this.allCourses.forEach(element => {
+      var courseExcel = {
+        offering_id: '',
+        course_type: '',
+        course_id: 0,
+        course_name: '',
+        course_mode: '',
+        location: '',
+        educator: '',
+        start_date: '',
+        end_date: '',
+        month:'',
+        start_time: '',
+        end_time: '',
+        contact_session_timing: '',
+        venue: '',
+        no_of_slots: 0,
+        registration_link: ''
+      };
+      courseExcel.offering_id = '';
+      courseExcel.course_type = element.course_type;
+      courseExcel.course_id = element.cId;
+      courseExcel.course_name = element.course_name;
+      courseExcel.course_mode = element.course_mode;
+      courseExcel.location = this.getLocation(element.location);
+      courseExcel.educator = element.educator.educator_name;
+      courseExcel.start_date = formatDate(element.start_date, 'dd-MMM-y', 'en');
+      courseExcel.end_date = formatDate(element.end_date, 'dd-MMM-y', 'en');
+      courseExcel.month = element.month;
+      courseExcel.start_time = this.timeShort(element.start_time);
+      courseExcel.end_time = this.timeShort(element.end_time);
+      courseExcel.contact_session_timing = this.timeConverter(element.contact_session_timing);
+      courseExcel.venue = this.getLocation(element.venue);
+      courseExcel.no_of_slots = parseInt(element.no_of_slots);
+      courseExcel.registration_link = element.registration_link;
+      this.dataSource.push(courseExcel);
+    });
     this.excel.exportAsExcelFile('Infosys Automation System', '', this.displayedColumns, this.dataSource, 'Infosys Automation System', 'Sheet1');
   }
 

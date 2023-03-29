@@ -99,10 +99,10 @@ export class LoginService {
   }
 
   // get user role
-  // getUserRole(){
-  //   let user = this.getUser();
-  //   return user.authorities[0].authority;
-  // }
+  getUserRole(){
+    let user = this.getUser();
+    return user.authorities[0].authority;
+  }
 
   // Educator Registration
 
