@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
   monthNames:any = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
+    mData:Courses[] = [];
   ngOnInit() {
     this.currentUser = this.api.getUser();
     this.getAllEducators();
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit {
       (res:any)=>{
         this.allCourses.length = 0;
         this.allCourses = res;
+        this.mData = this.allCourses;
       },
       (error:any)=>{
         console.log(error);
@@ -72,28 +74,35 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
+
   getDataByCName(cname:any){
-    this._courses.getDataByType(0,0,0,cname).subscribe(
-      (res: any) => {
-        this.allCourses.length = 0;
-        this.allCourses = res;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    )
+    const data = this.mData.filter((obj: { course_name: string | any[]; }) => obj.course_name.includes(cname));
+    this.allCourses = data;
+
+    // this._courses.getDataByType(0,0,0,cname).subscribe(
+    //   (res: any) => {
+    //     this.allCourses.length = 0;
+    //     this.allCourses = res;
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.log(error);
+    //   }
+    // )
   }
 
   getDataByType(mode:any){
-    this._courses.getDataByType(0,mode,0,0).subscribe(
-      (res: any) => {
-        this.allCourses.length = 0;
-        this.allCourses = res;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    )
+    const data = this.mData.filter(((obj: { course_mode: any; }) => obj.course_mode === mode));
+    this.allCourses = data;    
+
+    // this._courses.getDataByType(0,mode,0,0).subscribe(
+    //   (res: any) => {
+    //     this.allCourses.length = 0;
+    //     this.allCourses = res;
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.log(error);
+    //   }
+    // )
   }
 
   getAllEducators() {
@@ -115,7 +124,8 @@ export class DashboardComponent implements OnInit {
     this._courses.getAllCourses().subscribe(
       (res) => {
         this.allCourses = res;
-        
+        this.mData = this.allCourses;       
+        console.log(this.mData.sort((a:any,b:any)=> b.cId - a.cId)); 
       },
       (err: HttpErrorResponse) => {
         this._snackBar.open('Server error !!', 'Close', {
@@ -126,7 +136,9 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
-
+  onNone(){
+    this.allCourses = this.mData;
+  }
   getLocation(loc: any) {
     if (loc == '') {
       return "N.A."
@@ -162,7 +174,7 @@ export class DashboardComponent implements OnInit {
   }
 
   exportToExcel() {
-    this.allCourses.forEach(element => {
+    this.mData.forEach(element => {
       var courseExcel = {
         offering_id: '',
         course_type: '',

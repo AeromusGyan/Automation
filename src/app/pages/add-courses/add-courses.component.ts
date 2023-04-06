@@ -13,10 +13,10 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class AddCoursesComponent implements OnInit {
   educators!: any;
-  currentUser:any={
-    id:0,
-    authorities:[{
-      authority:''
+  currentUser: any = {
+    id: 0,
+    authorities: [{
+      authority: ''
     }]
   };
 
@@ -24,6 +24,10 @@ export class AddCoursesComponent implements OnInit {
   userdata!: any;
   endTime = '';
   allCourses: any[] = [];
+  //today's date
+todayDate:Date = new Date();
+
+
   constructor(
     private api: LoginService,
     private _courses: CoursesService,
@@ -127,7 +131,7 @@ export class AddCoursesComponent implements OnInit {
         element.educator.id === this.courses.value.educator?.id &&
         element.start_date === this.courses.value.start_date &&
         element.start_time === this.courses.value.start_time &&
-        element.start_time >= this.courses.value.start_time! && 
+        element.start_time >= this.courses.value.start_time! &&
         element.end_time <= this.courses.value.end_time!) {
         this.isExist = false;
         break
@@ -149,17 +153,19 @@ export class AddCoursesComponent implements OnInit {
     this.onCheckCourseValidator();
     if (this.courses.value.course_type == "RBT") {
       if (this.courses.value.course_mode == "VCR") {
-        if (this.courses.value.course_name == "Agility and Scrum" || this.courses.value.course_name == "Introduction to DevOps" ||
-          this.courses.value.course_name == "Agility and Kanban") {
+        if (this.courses.value.course_name == "Agility and Scrum" || this.courses.value.course_name == "Introduction to DevOps" || this.courses.value.course_name == "Agility and Kanban") {
           this.courses.value.no_of_slots = '300'
         }
         else {
           this.courses.value.no_of_slots = '99'
         }
       }
+      else{
+        this.courses.get('no_of_slots')!.setValue('60');
+      }
     }
     else {
-      this.courses.value.no_of_slots = '60';
+      this.courses.get('no_of_slots')!.setValue('60');
     }
 
     if (this.courses.value.start_time == '' || this.courses.value.start_time == null || this.courses.value.end_time == '' || this.courses.value.end_time == null) {

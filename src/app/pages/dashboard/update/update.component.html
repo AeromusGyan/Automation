@@ -12,7 +12,7 @@
         <div class="col-md-12">
           <mat-form-field class="w100">
             <mat-label>Enter Course Start Date</mat-label>
-            <input matInput [matDatepicker]="picker1" [(ngModel)]="singleCourse.start_date"
+            <input matInput [matDatepicker]="picker1" [min]="todayDate" [(ngModel)]="singleCourse.start_date"
               [ngModelOptions]="{standalone: true}">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -23,7 +23,7 @@
         <div class="col-md-12">
           <mat-form-field class="w100">
             <mat-label>Enter Course End Date</mat-label>
-            <input matInput [matDatepicker]="picker2" [(ngModel)]="singleCourse.end_date"
+            <input matInput [matDatepicker]="picker2" [min]="todayDate" [(ngModel)]="singleCourse.end_date"
               [ngModelOptions]="{standalone: true}">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>

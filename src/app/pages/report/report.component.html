@@ -28,6 +28,7 @@
                     <mat-form-field class="w100" appearance="fill">
                         <mat-label>Offering Type</mat-label>
                         <mat-select>
+                            <mat-option (click)="onNone()">None</mat-option>
                             <mat-option value="RBT" (click)="getDataByType('RBT')">RBT</mat-option>
                             <mat-option value="JIT" (click)="getDataByType('JIT')">JIT</mat-option>
                         </mat-select>
@@ -38,6 +39,7 @@
                     <mat-form-field class="w100" appearance="fill">
                         <mat-label>Offering Mode</mat-label>
                         <mat-select>
+                            <mat-option (click)="onNone()">None</mat-option>
                             <mat-option value="CR" (click)="getDataByMode('CR')">CR</mat-option>
                             <mat-option value="VCR" (click)="getDataByMode('VCR')">VCR</mat-option>
                         </mat-select>
@@ -59,6 +61,7 @@
     </div>
     <div class="container-fluid">
         <mat-card>
+            <h3 > <span >All Course report </span> <span *ngIf="date.start != '' && date.end != ''">between {{date.start | date}} to {{date.end | date}}</span></h3>
             <table class="table table-responsive table-striped">
                 <thead>
                     <tr>
@@ -69,7 +72,8 @@
                 </thead>
                 <tbody>
                     <tr *ngIf="dateData.length == 0 || dateData == null">
-                        <td colspan="3" align="center"><mat-spinner></mat-spinner>
+                        <td colspan="3" align="center">
+                            <mat-spinner></mat-spinner>
                         <h3>No Data Found!!</h3>
                         </td>
                       </tr>

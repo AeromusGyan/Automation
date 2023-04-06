@@ -5,36 +5,43 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CoursesSortPipe implements PipeTransform {
 
+  public data: any[] = [];
 
   transform(value: any[], args?: any): any[] {
-    // console.log(value, args);
-    const data: any[] = [];
+
+    console.log(value, args);
+    this.data.length = 0;
+    console.log(this.data);
+    
     for (let index = 0; index < value.length; index++) {
+      console.log(value[index].start_date);
+      
       if (args === value[index].course_name) {
-        data.push(value[index]);
-        console.log(data);
-        
-        return data;
+        this.data.push(value[index]);
+        console.log(this.data);
+        return this.data;
       }
       else if (args === value[index].educator.educator_name) {
-        data.push(value[index]);
-        return data;
+        this.data.push(value[index]);
+        return this.data;
       }
       else if (args === value[index].course_mode) {
-        data.push(value[index]);
-        return data;
+        this.data.push(value[index]);
+        return this.data;
       }
-      else if (args === value[index].start_date) {
-        data.push(value[index]);
-        return data;
+      else if (args == value[index].start_date) {
+        this.data.push(value[index]);
+        console.log(this.data);
+
+        return this.data;
       }
       else if (args === value[index].end_date) {
-        data.push(value[index]);
-        return data;
+        this.data.push(value[index]);
+        return this.data;
       }
       else if (args === value[index].contact_session_timing) {
-        data.push(value[index]);
-        return data;
+        this.data.push(value[index]);
+        return this.data;
       }
     }
     // 

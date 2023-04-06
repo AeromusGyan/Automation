@@ -25,3 +25,18 @@ h5{
         overflow: scroll;
     }
 }
+
+th, td {
+    /* other styles for table cells */
+    width: 200px; /* set a width to the cells */
+  }
+  
+  .truncate {
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  .truncate a{
+    // overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+  }

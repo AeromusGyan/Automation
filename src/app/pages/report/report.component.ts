@@ -16,7 +16,9 @@ export class ReportComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCourse();
   }
-  public chart: any;
+
+  public modeChart: any;
+  public tChart: any;
   public barChart: any;
 
   date: any = {
@@ -29,12 +31,14 @@ export class ReportComponent implements OnInit {
   crPercent: any;
   rbtPercent: any;
   jitPercent: any;
+  mDtata:any = [];
 
   getAllCourse() {
     this.dateData.length = 0;
     this.courses.getAllCourses().subscribe(
       (res: any) => {
         this.dateData = res;
+        this.mDtata = this.dateData;
         this.getTypePercent();
         setTimeout(() => {
           this.pieChart();
@@ -52,7 +56,7 @@ export class ReportComponent implements OnInit {
     if (this.date.start === '' || this.date.end === '') {
       alert("Choose Start Date and End Date!!");
     }
-    else{
+    else {
       const startDate = this.date.start;
       const sDate = new Date(startDate);
       const endDate = this.date.end;
@@ -61,11 +65,12 @@ export class ReportComponent implements OnInit {
         (res: any) => {
           this.dateData.length = 0;
           this.dateData = res;
+          this.mDtata = this.dateData;
           this.getTypePercent();
           setTimeout(() => {
             this.pieChart();
             this.typeChart();
-            this.barChart();
+            this.barCharts();
           }, 1000);
         },
         (error: HttpErrorResponse) => {
@@ -76,39 +81,47 @@ export class ReportComponent implements OnInit {
   }
 
   getDataByType(type: any) {
-    this.dateData.length = 0;
-    this.courses.getDataByType(type, 0, 0, 0).subscribe(
-      (res: any) => {
-        this.dateData = res;
+    // console.log(this.dateData.sort((a:any,type:any)=> a.course_type.localeCompare(type)));
+    // console.log(this.mDtata.filter((obj: { course_type: string | any[]; }) => obj.course_type.includes(type)));
+    const data = this.mDtata.filter((obj: { course_type: string | any[]; }) => obj.course_type.includes(type));
+    this.dateData = data;    
+    // this.dateData.length = 0;
+    // this.courses.getDataByType(type, 0, 0, 0).subscribe(
+    //   (res: any) => {
+    //     this.dateData = res;
         this.getTypePercent();
         setTimeout(() => {
           this.pieChart();
           this.typeChart();
-          this.barChart();
+          this.barCharts();
         }, 1000);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    )
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     console.log(error);
+    //   }
+    // )
   }
-
+  onNone(){
+    this.dateData = this.mDtata;
+  }
   getDataByMode(mode: any) {
-    this.dateData.length = 0
-    this.courses.getDataByType(0, mode, 0, 0).subscribe(
-      (res: any) => {
-        this.dateData = res;
+    const data = this.mDtata.filter(((obj: { course_mode: any; }) => obj.course_mode === mode));
+    this.dateData = data;    
+    console.log(data);
+    
+    // this.courses.getDataByType(0, mode, 0, 0).subscribe(
+    //   (res: any) => {
+    //     this.dateData = res;
         this.getTypePercent();
         setTimeout(() => {
           this.pieChart();
           this.typeChart();
-          this.barChart();
+          this.barCharts();
         }, 1000);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    )
+      // },
+      // (error: HttpErrorResponse) => {
+      //   console.log(error);
+      // })
   }
 
   getTypePercent() {
@@ -131,60 +144,66 @@ export class ReportComponent implements OnInit {
         jit += 1;
       }
     }
-    this.vcrPercent = (vcr / this.dateData.length) * 100;
-    this.crPercent = (cr / this.dateData.length) * 100;
-    this.rbtPercent = (rbt / this.dateData.length) * 100;
-    this.jitPercent = (jit / this.dateData.length) * 100;
+    this.vcrPercent = ((vcr / this.dateData.length) * 100).toFixed(2);
+    this.crPercent = ((cr / this.dateData.length) * 100).toFixed(2);
+    this.rbtPercent = ((rbt / this.dateData.length) * 100).toFixed(2);
+    this.jitPercent = ((jit / this.dateData.length) * 100).toFixed(2);
+    // console.log(this.vcrPercent,this.crPercent,this.rbtPercent,this.jitPercent);
   }
 
   pieChart() {
-    this.chart = new Chart("modeChart", {
-      type: 'pie',
-      data: {
-        labels: [
-          'VCR',
-          'CR'
-        ],
-        datasets: [{
-          label: 'Course Mode',
-          data: [this.vcrPercent, this.crPercent],
-          backgroundColor: [
-            '#48D3AA',
-            'rgba(255, 99, 132, 0.2)',
+    if (this.modeChart != undefined){
+      this.modeChart.destroy(); 
+    }
+      this.modeChart = new Chart("modeChart", {
+        type: 'pie',
+        data: {
+          labels: [
+            'VCR',
+            'CR'
           ],
-          borderColor: [
-            'rgb(75, 192, 192)',
-            'rgb(255, 99, 132)',
-          ]
-        }]
-      },
-      options: {
-        plugins: {
-          tooltip: {
-            mode: 'index',
-            intersect: false,
-            yAlign: "bottom",
-          },
-          title: {
-            display: true,
-            text: 'Course Mode'
-          },
-          legend: {
-            display: false
-          },
+          datasets: [{
+            label: 'Course Mode',
+            data: [this.vcrPercent, this.crPercent],
+            backgroundColor: [
+              '#48D3AA',
+              'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+              'rgb(75, 192, 192)',
+              'rgb(255, 99, 132)',
+            ]
+          }]
         },
-        // aspectRatio: 3.5,
-        // responsive: true,
-        // cutout: "95%",
-        // rotation: 270, // start angle in degrees
-        // circumference: 180, // sweep angle in degrees
-      },
-    },
-    );
+        options: {
+          plugins: {
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              yAlign: "bottom",
+            },
+            title: {
+              display: true,
+              text: 'Course Mode'
+            },
+            legend: {
+              display: false
+            },
+          },
+          // aspectRatio: 3.5,
+          responsive: true,
+          cutout: "10%",
+          // rotation: 270, // start angle in degrees
+          // circumference: 180, // sweep angle in degrees
+        },
+      },);
   }
 
   typeChart() {
-    this.chart = new Chart("typeChart", {
+    if (this.tChart != undefined){
+      this.tChart.destroy(); 
+    }
+    this.tChart = new Chart("typeChart", {
       type: 'pie',
       data: {
         labels: [
@@ -221,7 +240,7 @@ export class ReportComponent implements OnInit {
         },
         // aspectRatio: 3.5,
         // responsive: true,
-        // cutout: "95%",
+        cutout: "10%",
         // rotation: 270, // start angle in degrees
         // circumference: 180, // sweep angle in degrees
       },
@@ -230,48 +249,51 @@ export class ReportComponent implements OnInit {
   }
 
   barCharts() {
-    this.barChart = new Chart("barChart", {
-      type: 'bar',
-      data: {
-        labels: [
-
-        ],
-        datasets: [{
-          indexAxis: 'x',
-          label: 'No of Slots',
-          data: [],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            beginAtZero: true,
-            grid: {
-              offset: true
-            }
-          },
-        }
-      },
-    });
+    if (this.barChart != undefined){
+      this.barChart.destroy(); 
+    }
+      this.barChart = new Chart("barChart", {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [{
+            indexAxis: 'x',
+            label: 'No of Slots',
+            data: [],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)',
+              'rgb(153, 102, 255)',
+              'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              beginAtZero: true,
+              grid: {
+                offset: true
+              }
+            },
+          }
+        },
+      });
+      
+    this.barChart.data.datasets[0].data.pop();
     for (let i = 0; i < this.dateData.length; i++) {
       const element = this.dateData[i];
       this.barChart.data.labels.push(element.course_name);
@@ -279,5 +301,4 @@ export class ReportComponent implements OnInit {
       this.barChart.update();
     }
   }
-
 }

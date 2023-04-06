@@ -13,6 +13,8 @@ export class UpdateComponent {
     educator: {}
   };
 
+  todayDate:Date = new Date();
+  
   updateData:any = {
     cId: 5,
     contact_session_timing: "19:12-21:12",
