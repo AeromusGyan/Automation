@@ -169,3 +169,22 @@ p {
     cursor: pointer;
   }
 }
+
+
+th, td {
+  /* other styles for table cells */
+  width: 200px; /* set a width to the cells */
+}
+
+.truncate {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.grey{
+  background-color: grey;
+  color: #fff;
+}
+a {
+  color: #fff;
+}

@@ -39,7 +39,7 @@
       <table id="exceltable" class="table table-responsive table-striped">
         <thead>
           <tr>
-            <th>#</th>
+            <th class="grey">Offering ID</th>
             <th>Course Name</th>
             <th>Type</th>
             <th>CR/VCR</th>
@@ -53,12 +53,12 @@
             <th>Contact Session Timing</th>
             <th>Venue</th>
             <th>Slots to be Opened</th>
-            <th>Lex Link</th>
+            <th class="grey">Lex Link</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let c of excelData ; index as i">
-            <td>{{c.Offering_Id}}</td>
+            <td class="grey text-white">{{c.Offering_Id}}</td>
             <td>{{c.Course_Name}}</td>
             <td>{{c.Type}}</td>
             <td>{{c.CR_VCR}}</td>
@@ -72,7 +72,7 @@
             <td>{{c.Contact_Session_Timing}}</td>
             <td>{{c.Venue}}</td>
             <td>{{c.Slots}}</td>
-            <td>{{c.Registration_Link}}</td>
+            <td class="truncate grey"><a href="{{c.Registration_Link}}" target="_blank">{{c.Registration_Link}}</a></td>
           </tr>
         </tbody>
       </table>
