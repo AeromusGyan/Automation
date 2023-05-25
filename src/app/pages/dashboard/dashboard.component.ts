@@ -67,6 +67,7 @@ export class DashboardComponent implements OnInit {
         this.allCourses.length = 0;
         this.allCourses = res;
         this.mData = this.allCourses;
+        this.mData.sort((a:any,b:any)=> b.cId - a.cId)
       },
       (error:any)=>{
         console.log(error);
@@ -78,7 +79,7 @@ export class DashboardComponent implements OnInit {
   getDataByCName(cname:any){
     const data = this.mData.filter((obj: { course_name: string | any[]; }) => obj.course_name.includes(cname));
     this.allCourses = data;
-
+    this.allCourses.sort((a:any,b:any)=> b.cId - a.cId)
     // this._courses.getDataByType(0,0,0,cname).subscribe(
     //   (res: any) => {
     //     this.allCourses.length = 0;
@@ -93,7 +94,7 @@ export class DashboardComponent implements OnInit {
   getDataByType(mode:any){
     const data = this.mData.filter(((obj: { course_mode: any; }) => obj.course_mode === mode));
     this.allCourses = data;    
-
+    this.allCourses.sort((a:any,b:any)=> b.cId - a.cId)
     // this._courses.getDataByType(0,mode,0,0).subscribe(
     //   (res: any) => {
     //     this.allCourses.length = 0;
@@ -125,7 +126,8 @@ export class DashboardComponent implements OnInit {
       (res) => {
         this.allCourses = res;
         this.mData = this.allCourses;       
-        console.log(this.mData.sort((a:any,b:any)=> b.cId - a.cId)); 
+        this.mData.sort((a:any,b:any)=> b.cId - a.cId)
+        // console.log(this.mData); 
       },
       (err: HttpErrorResponse) => {
         this._snackBar.open('Server error !!', 'Close', {
@@ -136,6 +138,7 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
+
   onNone(){
     this.allCourses = this.mData;
   }
@@ -176,7 +179,7 @@ export class DashboardComponent implements OnInit {
   exportToExcel() {
     this.mData.forEach(element => {
       var courseExcel = {
-        offering_id: '',
+        offering_id: 0,
         course_type: '',
         course_id: 0,
         course_name: '',
@@ -193,7 +196,7 @@ export class DashboardComponent implements OnInit {
         no_of_slots: 0,
         registration_link: ''
       };
-      courseExcel.offering_id = '';
+      courseExcel.offering_id = element.offeringId;
       courseExcel.course_type = element.course_type;
       courseExcel.course_id = element.cId;
       courseExcel.course_name = element.course_name;

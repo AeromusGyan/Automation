@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   constructor(private http: HttpClient,
-    private _snackBar: MatSnackBar,) { }
+    private _snackBar: MatSnackBar) { }
 
   private baseUrl: string = environment.baseUrl;
 

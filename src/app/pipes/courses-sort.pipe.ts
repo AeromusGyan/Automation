@@ -9,16 +9,16 @@ export class CoursesSortPipe implements PipeTransform {
 
   transform(value: any[], args?: any): any[] {
 
-    console.log(value, args);
+    // console.log(value, args);
     this.data.length = 0;
-    console.log(this.data);
+    // console.log(this.data);
     
     for (let index = 0; index < value.length; index++) {
-      console.log(value[index].start_date);
+      // console.log(value[index].start_date);
       
       if (args === value[index].course_name) {
         this.data.push(value[index]);
-        console.log(this.data);
+        // console.log(this.data);
         return this.data;
       }
       else if (args === value[index].educator.educator_name) {
@@ -31,7 +31,7 @@ export class CoursesSortPipe implements PipeTransform {
       }
       else if (args == value[index].start_date) {
         this.data.push(value[index]);
-        console.log(this.data);
+        // console.log(this.data);
 
         return this.data;
       }

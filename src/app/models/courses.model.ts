@@ -1,4 +1,5 @@
 export interface Courses{
+    offeringId:number,
     cId:number,
     course_type:string,
     course_name: string,
