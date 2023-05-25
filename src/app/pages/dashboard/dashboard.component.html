@@ -81,6 +81,7 @@
         <thead>
           <tr>
             <th>#</th>
+            <th>offering ID</th>
             <th>Course Name</th>
             <th>Type</th>
             <th>CR/VCR</th>
@@ -108,6 +109,7 @@
           </tr>
           <tr *ngFor="let c of allCourses | coursesSort: sortoption; index as i">
             <td>{{i+1}}</td>
+            <td>{{c.offeringId}}</td>
             <td>{{c.course_name}}</td>
             <td>{{c.course_type}}</td>
             <td>{{c.course_mode}}</td>
